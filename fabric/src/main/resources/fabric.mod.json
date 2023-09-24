@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "chinesefestivals",
+  "version": "${version}",
+
+  "name": "ChineseFestivals",
+  "description": "A mod about Chinese festivals",
+  "authors": [],
+  "contact": {},
+
+  "license": "GNU AGPL 3.0",
+  "icon": "icon.png",
+
+  "environment": "*",
+  "entrypoints": {},
+  "mixins": [
+    "chinesefestivals.mixins.json",
+    "chinesefestivals-common.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.22",
+    "minecraft": ">=1.20.1"
+  }
+}
