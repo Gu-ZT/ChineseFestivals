@@ -30,6 +30,9 @@ allprojects {
 
     archivesBaseName = rootProject.archives_base_name
     version = rootProject.mod_version
+    if (rootProject.build_number != 'undefined') {
+        version += "+build.${rootProject.build_number}"
+    }
     group = rootProject.maven_group
 
     repositories {
