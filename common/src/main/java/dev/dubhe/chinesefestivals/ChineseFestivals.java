@@ -21,7 +21,7 @@ public class ChineseFestivals {
     // 七夕节
     public static final Festival QIXI_FESTIVAL = new LunarFestival("qixi", 7, 7);
     // 中秋节
-    public static final Festival MOON_FESTIVAL = new LunarFestival("moon", 8, 12);
+    public static final Festival MOON_FESTIVAL = new LunarFestival("moon", 8, 15);
     // 重阳节
     public static final Festival DOUBLE_NINTH_FESTIVAL = new LunarFestival("double_ninth", 9, 9);
     // 腊八节
@@ -64,7 +64,6 @@ public class ChineseFestivals {
         }
 
         public boolean inFestival(int month, int day) {
-
             if (startMonth == endMonth) {
                 return month == startMonth && day >= startDay && day <= endDay;
             } else {
