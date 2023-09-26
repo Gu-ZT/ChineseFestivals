@@ -4,6 +4,7 @@
   "package": "dev.dubhe.chinesefestivals.fabric.mixins",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "CommandsMixin"
   ],
   "client": [
   ],
