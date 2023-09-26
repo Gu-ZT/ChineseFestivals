@@ -1023,6 +1023,7 @@ public class Lunar {
      * @return 方位，如艮
      * @deprecated 使用getDayPositionXi
      */
+    @Deprecated
     public String getPositionXi() {
         return getDayPositionXi();
     }
@@ -1033,6 +1034,7 @@ public class Lunar {
      * @return 方位描述，如东北
      * @deprecated 使用getDayPositionXiDesc
      */
+    @Deprecated
     public String getPositionXiDesc() {
         return getDayPositionXiDesc();
     }
@@ -1043,6 +1045,7 @@ public class Lunar {
      * @return 阳贵神方位，如艮
      * @deprecated 使用getDayPositionYangGui
      */
+    @Deprecated
     public String getPositionYangGui() {
         return getDayPositionYangGui();
     }
@@ -1053,6 +1056,7 @@ public class Lunar {
      * @return 方位描述，如东北
      * @deprecated 使用getDayPositionYangGuiDesc
      */
+    @Deprecated
     public String getPositionYangGuiDesc() {
         return getDayPositionYangGuiDesc();
     }
@@ -1063,6 +1067,7 @@ public class Lunar {
      * @return 方位，如艮
      * @deprecated 使用getDayPositionYinGui
      */
+    @Deprecated
     public String getPositionYinGui() {
         return getDayPositionYinGui();
     }
@@ -1073,6 +1078,7 @@ public class Lunar {
      * @return 阴贵神方位描述，如东北
      * @deprecated 使用getDayPositionYinGuiDesc
      */
+    @Deprecated
     public String getPositionYinGuiDesc() {
         return getDayPositionYinGuiDesc();
     }
@@ -1083,6 +1089,7 @@ public class Lunar {
      * @return 方位，如艮
      * @deprecated 使用getDayPositionFu
      */
+    @Deprecated
     public String getPositionFu() {
         return getDayPositionFu();
     }
@@ -1093,6 +1100,7 @@ public class Lunar {
      * @return 方位描述，如东北
      * @deprecated 使用getDayPositionFuDesc
      */
+    @Deprecated
     public String getPositionFuDesc() {
         return getDayPositionFuDesc();
     }
@@ -1103,6 +1111,7 @@ public class Lunar {
      * @return 方位，如艮
      * @deprecated 使用getDayPositionCai
      */
+    @Deprecated
     public String getPositionCai() {
         return getDayPositionCai();
     }
@@ -1113,6 +1122,7 @@ public class Lunar {
      * @return 方位描述，如东北
      * @deprecated 使用getDayPositionCaiDesc
      */
+    @Deprecated
     public String getPositionCaiDesc() {
         return getDayPositionCaiDesc();
     }
