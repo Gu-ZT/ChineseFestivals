@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import dev.dubhe.chinesefestivals.ChineseFestivals;
 import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -31,14 +33,21 @@ public abstract class LevelRendererMixin {
 
     @Shadow
     private @Nullable ClientLevel level;
-    @Unique
-    private static final Thread chineseFestivals$REFRESH = new Thread(ChineseFestivals::refresh);
+    @Shadow
+    @Final
+    private Minecraft minecraft;
 
     @Inject(method = "renderLevel", at = @At("RETURN"))
     private void renderLevel(PoseStack poseStack, float f, long l, boolean bl, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f matrix4f, CallbackInfo ci) {
         if (this.level == null) return;
-        if (this.level.getGameTime() % 600 == 0 && !chineseFestivals$REFRESH.isAlive())
-            chineseFestivals$REFRESH.start();
+        if (this.level.getGameTime() % 600 == 0) {
+            new Thread(ChineseFestivals::refresh).start();
+        }
+        if (ChineseFestivals.hasChanged) {
+            ChineseFestivals.LOGGER.info("hasChanged");
+            ChineseFestivals.hasChanged = false;
+            this.minecraft.levelRenderer.allChanged();
+        }
     }
 
     @Inject(method = "renderSky", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/BufferUploader;drawWithShader(Lcom/mojang/blaze3d/vertex/BufferBuilder$RenderedBuffer;)V", ordinal = 2), locals = LocalCapture.CAPTURE_FAILHARD)

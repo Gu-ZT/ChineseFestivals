@@ -31,6 +31,7 @@ public class ChineseFestivals {
     public static final Festival LABA_FESTIVAL = new LunarFestival("laba", 12, 8);
     public static final String MOD_ID = "chinesefestivals";
     public static String debugFestival = null;
+    public static boolean hasChanged = false;
 
     public static void init() {
 
@@ -73,10 +74,19 @@ public class ChineseFestivals {
 
         public void refresh() {
             LocalDate now = LocalDate.now();
-            int currentMonth = now.getMonthValue();
-            int currentDay = now.getDayOfMonth();
-            if (this.id.equals(ChineseFestivals.debugFestival)) this.flag = true;
-            else this.flag = inFestival(currentMonth, currentDay);
+            refresh(now::getMonthValue, now::getDayOfMonth);
+        }
+
+        protected void refresh(GetTime month, GetTime day) {
+            int currentMonth = month.get();
+            int currentDay = day.get();
+            boolean flag;
+            if (this.id.equals(ChineseFestivals.debugFestival)) flag = true;
+            else flag = inFestival(currentMonth, currentDay);
+            if (flag != this.flag) {
+                ChineseFestivals.hasChanged = true;
+                this.flag = flag;
+            }
         }
 
         public boolean inFestival(int month, int day) {
@@ -102,10 +112,12 @@ public class ChineseFestivals {
         @Override
         public void refresh() {
             Lunar lunar = new Lunar(new Date());
-            int currentMonth = Math.abs(lunar.getMonth());
-            int currentDay = Math.abs(lunar.getDay());
-            if (this.id.equals(ChineseFestivals.debugFestival)) this.flag = true;
-            else this.flag = inFestival(currentMonth, currentDay);
+            refresh(() -> Math.abs(lunar.getMonth()), () -> Math.abs(lunar.getDay()));
         }
+    }
+
+    @FunctionalInterface
+    public interface GetTime {
+        int get();
     }
 }
