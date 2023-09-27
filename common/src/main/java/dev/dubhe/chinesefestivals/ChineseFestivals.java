@@ -6,13 +6,13 @@ import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
 public class ChineseFestivals {
     public static final Logger LOGGER = LogUtils.getLogger();
+    public static final List<Festival> FESTIVALS = new Vector<>();
     // 春节
     public static final Festival CHINESE_SPRING_FESTIVAL = new LunarFestival("spring", 12, 23, 1, 5);
     // 元旦节
@@ -29,7 +29,6 @@ public class ChineseFestivals {
     public static final Festival DOUBLE_NINTH_FESTIVAL = new LunarFestival("double_ninth", 9, 9);
     // 腊八节
     public static final Festival LABA_FESTIVAL = new LunarFestival("laba", 12, 8);
-    public static final List<Festival> FESTIVALS = new Vector<>();
     public static final String MOD_ID = "chinesefestivals";
     public static String debugFestival = null;
 
@@ -38,12 +37,8 @@ public class ChineseFestivals {
     }
 
     public static void refresh() {
-        List<Festival> festivalList = new ArrayList<>();
         for (Festival festival : FESTIVALS) {
-            if (!festival.isNowS()) festivalList.add(festival);
-        }
-        for (Festival festival : festivalList) {
-            FESTIVALS.remove(festival);
+            festival.refresh();
         }
     }
 
@@ -57,6 +52,7 @@ public class ChineseFestivals {
         protected final int startDay;
         protected final int endMonth;
         protected final int endDay;
+        protected boolean flag = false;
 
         public Festival(String id, int month, int day) {
             this(id, month, day, month, day);
@@ -68,22 +64,19 @@ public class ChineseFestivals {
             this.startDay = startDay;
             this.endMonth = endMonth;
             this.endDay = endDay;
+            ChineseFestivals.FESTIVALS.add(this);
         }
 
         public boolean isNow() {
-            if (ChineseFestivals.FESTIVALS.contains(this)) return true;
-            else return isNowS();
+            return this.flag;
         }
 
-        public boolean isNowS() {
+        public void refresh() {
             LocalDate now = LocalDate.now();
             int currentMonth = now.getMonthValue();
             int currentDay = now.getDayOfMonth();
-            boolean flag;
-            if (this.id.equals(ChineseFestivals.debugFestival)) flag = true;
-            else flag = inFestival(currentMonth, currentDay);
-            if (flag) ChineseFestivals.FESTIVALS.add(this);
-            return flag;
+            if (this.id.equals(ChineseFestivals.debugFestival)) this.flag = true;
+            else this.flag = inFestival(currentMonth, currentDay);
         }
 
         public boolean inFestival(int month, int day) {
@@ -107,15 +100,12 @@ public class ChineseFestivals {
         }
 
         @Override
-        public boolean isNowS() {
+        public void refresh() {
             Lunar lunar = new Lunar(new Date());
             int currentMonth = Math.abs(lunar.getMonth());
             int currentDay = Math.abs(lunar.getDay());
-            boolean flag;
-            if (this.id.equals(ChineseFestivals.debugFestival)) flag = true;
-            else flag = inFestival(currentMonth, currentDay);
-            if (flag) ChineseFestivals.FESTIVALS.add(this);
-            return flag;
+            if (this.id.equals(ChineseFestivals.debugFestival)) this.flag = true;
+            else this.flag = inFestival(currentMonth, currentDay);
         }
     }
 }
