@@ -37,7 +37,8 @@ public abstract class LevelRendererMixin {
     @Inject(method = "renderLevel", at = @At("RETURN"))
     private void renderLevel(PoseStack poseStack, float f, long l, boolean bl, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f matrix4f, CallbackInfo ci) {
         if (this.level == null) return;
-        if (this.level.getGameTime() % 600 == 0) new Thread(chineseFestivals$REFRESH).start();
+        if (this.level.getGameTime() % 600 == 0 && !chineseFestivals$REFRESH.isAlive())
+            chineseFestivals$REFRESH.start();
     }
 
     @Inject(method = "renderSky", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/BufferUploader;drawWithShader(Lcom/mojang/blaze3d/vertex/BufferBuilder$RenderedBuffer;)V", ordinal = 2), locals = LocalCapture.CAPTURE_FAILHARD)

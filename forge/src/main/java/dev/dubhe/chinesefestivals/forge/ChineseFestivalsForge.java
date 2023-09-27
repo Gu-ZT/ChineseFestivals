@@ -3,10 +3,7 @@ package dev.dubhe.chinesefestivals.forge;
 import dev.architectury.platform.forge.EventBuses;
 import dev.dubhe.chinesefestivals.ChineseFestivals;
 import dev.dubhe.chinesefestivals.commands.DebugCommands;
-import net.minecraft.world.level.block.CakeBlock;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.PushReaction;
+import dev.dubhe.chinesefestivals.festivals.MoonFestival;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
@@ -36,7 +33,9 @@ public class ChineseFestivalsForge {
         @SubscribeEvent
         @OnlyIn(Dist.CLIENT)
         public static void register(RegisterEvent event) {
-            event.register(ForgeRegistries.Keys.BLOCKS, ChineseFestivals.of("cake"), () -> new CakeBlock(BlockBehaviour.Properties.of().forceSolidOn().strength(0.5f).sound(SoundType.WOOL).pushReaction(PushReaction.DESTROY)));
+            event.register(ForgeRegistries.Keys.BLOCKS, ChineseFestivals.of("cake"), () -> MoonFestival.MOON_CAKE);
+            event.register(ForgeRegistries.Keys.ITEMS, ChineseFestivals.of("cake"), () -> MoonFestival.MOON_CAKE_ITEM);
+            event.register(ForgeRegistries.Keys.ITEMS, ChineseFestivals.of("pumpkin_pie"), () -> MoonFestival.MOON_CAKE_ONLY_ITEM);
         }
     }
 }
