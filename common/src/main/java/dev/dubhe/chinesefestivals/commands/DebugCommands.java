@@ -13,7 +13,7 @@ import net.minecraft.network.chat.Component;
 public class DebugCommands {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         LiteralArgumentBuilder<CommandSourceStack> command = Commands.literal("festivals").requires(commandSourceStack -> commandSourceStack.hasPermission(3)).then(DebugCommands.genCommands());
-        dispatcher.register(Commands.literal("festivals").requires(commandSourceStack -> commandSourceStack.hasPermission(3)).then(command));
+        dispatcher.register(command);
     }
 
     public static ArgumentBuilder<CommandSourceStack, LiteralArgumentBuilder<CommandSourceStack>> genCommands() {
