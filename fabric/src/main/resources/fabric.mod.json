@@ -12,7 +12,11 @@
   "icon": "icon.png",
 
   "environment": "*",
-  "entrypoints": {},
+  "entrypoints": {
+    "client": [
+      "dev.dubhe.chinesefestivals.fabric.ChineseFestivalsFabric"
+    ]
+  },
   "mixins": [
     "chinesefestivals.mixins.json",
     "chinesefestivals-common.mixins.json"

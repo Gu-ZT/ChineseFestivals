@@ -8,8 +8,13 @@ import net.minecraft.network.chat.Component;
 
 public class DebugCommands {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(Commands.literal("festivals").then(
+        dispatcher.register(Commands.literal("festivals").requires(commandSourceStack -> commandSourceStack.hasPermission(3)).then(
                 Commands.literal("set").then(
+                        Commands.literal("none").executes(context -> {
+                            ChineseFestivals.debugFestival = "none";
+                            context.getSource().sendSuccess(() -> Component.literal("Festivals have been set as " + ChineseFestivals.debugFestival), false);
+                            return 0;
+                        })).then(
                         Commands.literal("spring").executes(context -> {
                             ChineseFestivals.debugFestival = "spring";
                             context.getSource().sendSuccess(() -> Component.literal("Festivals have been set as " + ChineseFestivals.debugFestival), false);

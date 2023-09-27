@@ -3,11 +3,19 @@ package dev.dubhe.chinesefestivals.forge;
 import dev.architectury.platform.forge.EventBuses;
 import dev.dubhe.chinesefestivals.ChineseFestivals;
 import dev.dubhe.chinesefestivals.commands.DebugCommands;
+import net.minecraft.world.level.block.CakeBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 
 @Mod(ChineseFestivals.MOD_ID)
 public class ChineseFestivalsForge {
@@ -21,5 +29,14 @@ public class ChineseFestivalsForge {
     @SubscribeEvent
     public void registerCommand(RegisterClientCommandsEvent event) {
         DebugCommands.register(event.getDispatcher());
+    }
+
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class Event {
+        @SubscribeEvent
+        @OnlyIn(Dist.CLIENT)
+        public static void register(RegisterEvent event) {
+            event.register(ForgeRegistries.Keys.BLOCKS, ChineseFestivals.of("cake"), () -> new CakeBlock(BlockBehaviour.Properties.of().forceSolidOn().strength(0.5f).sound(SoundType.WOOL).pushReaction(PushReaction.DESTROY)));
+        }
     }
 }

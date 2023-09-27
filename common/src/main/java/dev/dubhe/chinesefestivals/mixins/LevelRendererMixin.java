@@ -5,7 +5,9 @@ import com.mojang.blaze3d.vertex.*;
 import dev.dubhe.chinesefestivals.ChineseFestivals;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.FogType;
@@ -30,11 +32,17 @@ public abstract class LevelRendererMixin {
     @Shadow
     private @Nullable ClientLevel level;
 
+    @Inject(method = "renderLevel", at = @At("RETURN"))
+    private void renderLevel(PoseStack poseStack, float f, long l, boolean bl, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f matrix4f, CallbackInfo ci) {
+        if (this.level == null) return;
+        if (this.level.getGameTime() % 1200 == 0) ChineseFestivals.refresh();
+    }
+
     @Inject(method = "renderSky", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/BufferUploader;drawWithShader(Lcom/mojang/blaze3d/vertex/BufferBuilder$RenderedBuffer;)V", ordinal = 2), locals = LocalCapture.CAPTURE_FAILHARD)
     private void renderSky(PoseStack poseStack, Matrix4f matrix4f, float f, Camera camera, boolean bl, Runnable runnable, CallbackInfo ci, FogType fogType, Vec3 vec3, float g, float h, float i, BufferBuilder bufferBuilder, ShaderInstance shaderInstance, float[] fs, float j, Matrix4f matrix4f3, float l, int s, int t, int n, float u, float p, float q, float r) {
         if (
                 !ChineseFestivals.MOON_FESTIVAL.isNow() ||
-                        (this.level == null)
+                        this.level == null
         ) return;
         RenderSystem.setShaderTexture(0, chineseFestivals$MOON_LOCATION);
         int moonPhase = this.level.getMoonPhase();

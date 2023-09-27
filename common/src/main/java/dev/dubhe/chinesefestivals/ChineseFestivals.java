@@ -6,7 +6,10 @@ import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Vector;
 
 public class ChineseFestivals {
     public static final Logger LOGGER = LogUtils.getLogger();
@@ -26,11 +29,22 @@ public class ChineseFestivals {
     public static final Festival DOUBLE_NINTH_FESTIVAL = new LunarFestival("double_ninth", 9, 9);
     // 腊八节
     public static final Festival LABA_FESTIVAL = new LunarFestival("laba", 12, 8);
+    public static final List<Festival> FESTIVALS = new Vector<>();
     public static final String MOD_ID = "chinesefestivals";
     public static String debugFestival = null;
 
     public static void init() {
 
+    }
+
+    public static void refresh() {
+        List<Festival> festivalList = new ArrayList<>();
+        for (Festival festival : FESTIVALS) {
+            if (!festival.isNowS()) festivalList.add(festival);
+        }
+        for (Festival festival : festivalList) {
+            FESTIVALS.remove(festival);
+        }
     }
 
     public static ResourceLocation of(String id) {
@@ -57,10 +71,19 @@ public class ChineseFestivals {
         }
 
         public boolean isNow() {
+            if (ChineseFestivals.FESTIVALS.contains(this)) return true;
+            else return isNowS();
+        }
+
+        public boolean isNowS() {
             LocalDate now = LocalDate.now();
             int currentMonth = now.getMonthValue();
             int currentDay = now.getDayOfMonth();
-            return this.id.equals(ChineseFestivals.debugFestival) || inFestival(currentMonth, currentDay);
+            boolean flag;
+            if (this.id.equals(ChineseFestivals.debugFestival)) flag = true;
+            else flag = inFestival(currentMonth, currentDay);
+            if (flag) ChineseFestivals.FESTIVALS.add(this);
+            return flag;
         }
 
         public boolean inFestival(int month, int day) {
@@ -84,11 +107,15 @@ public class ChineseFestivals {
         }
 
         @Override
-        public boolean isNow() {
+        public boolean isNowS() {
             Lunar lunar = new Lunar(new Date());
             int currentMonth = Math.abs(lunar.getMonth());
             int currentDay = Math.abs(lunar.getDay());
-            return this.id.equals(ChineseFestivals.debugFestival) || inFestival(currentMonth, currentDay);
+            boolean flag;
+            if (this.id.equals(ChineseFestivals.debugFestival)) flag = true;
+            else flag = inFestival(currentMonth, currentDay);
+            if (flag) ChineseFestivals.FESTIVALS.add(this);
+            return flag;
         }
     }
 }
