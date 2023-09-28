@@ -23,7 +23,7 @@ public abstract class BlockModelShaperMixin {
     @Inject(method = "getBlockModel", at = @At("RETURN"), cancellable = true)
     private void getBlockModel(BlockState blockState, CallbackInfoReturnable<BakedModel> cir) {
         if (ChineseFestivals.MOON_FESTIVAL.isNow() && blockState.is(Blocks.CAKE)) {
-            ResourceLocation location = ChineseFestivals.of("cake");
+            ResourceLocation location = ChineseFestivals.of("mooncakes");
             BakedModel bakedmodel = this.modelManager.getModel(BlockModelShaper.stateToModelLocation(location, blockState));
             cir.setReturnValue(bakedmodel);
         }

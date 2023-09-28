@@ -28,8 +28,8 @@ public abstract class ItemModelShaperMixin {
     @Inject(method = "getItemModel(Lnet/minecraft/world/item/Item;)Lnet/minecraft/client/resources/model/BakedModel;", at = @At("HEAD"), cancellable = true)
     private void getItemModel(Item item, CallbackInfoReturnable<BakedModel> cir) {
         if (ChineseFestivals.MOON_FESTIVAL.isNow()) {
-            if (item == Items.CAKE) item = MoonFestival.MOON_CAKE_ITEM;
-            else if (item == Items.PUMPKIN_PIE) item = MoonFestival.MOON_CAKE_ONLY_ITEM;
+            if (item == Items.CAKE) item = MoonFestival.MOONCAKES_ITEM;
+            else if (item == Items.PUMPKIN_PIE) item = MoonFestival.MOONCAKE_ITEM;
             cir.setReturnValue(this.shapesCache.get(getIndex(item)));
         }
     }

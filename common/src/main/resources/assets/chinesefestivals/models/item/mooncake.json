@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "chinesefestivals:item/cake"
+    "layer0": "chinesefestivals:item/mooncake"
   }
 }

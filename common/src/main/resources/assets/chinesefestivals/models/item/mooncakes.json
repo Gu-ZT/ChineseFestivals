@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "chinesefestivals:item/pumpkin_pie"
+    "layer0": "chinesefestivals:item/mooncakes"
   }
 }

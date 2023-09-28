@@ -34,9 +34,9 @@ public class ChineseFestivalsForge {
         @SubscribeEvent
         @OnlyIn(Dist.CLIENT)
         public static void register(RegisterEvent event) {
-            event.register(ForgeRegistries.Keys.BLOCKS, ChineseFestivals.of("cake"), () -> MoonFestival.MOON_CAKE);
-            event.register(ForgeRegistries.Keys.ITEMS, ChineseFestivals.of("cake"), () -> MoonFestival.MOON_CAKE_ITEM);
-            event.register(ForgeRegistries.Keys.ITEMS, ChineseFestivals.of("pumpkin_pie"), () -> MoonFestival.MOON_CAKE_ONLY_ITEM);
+            event.register(ForgeRegistries.Keys.BLOCKS, ChineseFestivals.of("mooncakes"), () -> MoonFestival.MOONCAKES);
+            event.register(ForgeRegistries.Keys.ITEMS, ChineseFestivals.of("mooncakes"), () -> MoonFestival.MOONCAKES_ITEM);
+            event.register(ForgeRegistries.Keys.ITEMS, ChineseFestivals.of("mooncake"), () -> MoonFestival.MOONCAKE_ITEM);
         }
     }
 }
