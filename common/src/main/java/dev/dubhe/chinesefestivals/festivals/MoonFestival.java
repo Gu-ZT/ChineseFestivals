@@ -36,4 +36,12 @@ public class MoonFestival extends LunarFestival {
         map.put(Blocks.CAKE, MoonFestival.MOONCAKES);
         return map;
     }
+
+    @Override
+    public Map<String, String> getTranslationReplace() {
+        Map<String, String> map = super.getTranslationReplace();
+        map.put("block.minecraft.cake", "block.chinesefestivals.mooncakes");
+        map.put("item.minecraft.pumpkin_pie", "item.chinesefestivals.mooncake");
+        return map;
+    }
 }

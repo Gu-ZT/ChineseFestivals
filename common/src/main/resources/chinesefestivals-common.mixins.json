@@ -4,6 +4,7 @@
   "package": "dev.dubhe.chinesefestivals.mixins",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "LanguageMixin"
   ],
   "client": [
     "BlockModelShaperMixin",

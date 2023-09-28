@@ -27,6 +27,10 @@ public interface IFestival {
         return new ConcurrentHashMap<>();
     }
 
+    default Map<String, String> getTranslationReplace() {
+        return new ConcurrentHashMap<>();
+    }
+
     static Block createBlock(String id, Block block) {
         BLOCK_REGISTER.put(ChineseFestivals.of(id), block);
         return block;
