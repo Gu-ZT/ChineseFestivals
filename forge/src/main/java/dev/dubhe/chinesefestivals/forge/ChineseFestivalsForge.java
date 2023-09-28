@@ -16,6 +16,7 @@ import net.minecraftforge.registries.RegisterEvent;
 
 @Mod(ChineseFestivals.MOD_ID)
 public class ChineseFestivalsForge {
+    @OnlyIn(Dist.CLIENT)
     public ChineseFestivalsForge() {
         // Submit our event bus to let architectury register our content on the right time
         EventBuses.registerModEventBus(ChineseFestivals.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());

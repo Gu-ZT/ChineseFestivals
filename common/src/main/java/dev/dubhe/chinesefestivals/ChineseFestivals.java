@@ -34,7 +34,7 @@ public class ChineseFestivals {
     public static boolean hasChanged = false;
 
     public static void init() {
-
+        ChineseFestivals.refresh();
     }
 
     public static void refresh() {
