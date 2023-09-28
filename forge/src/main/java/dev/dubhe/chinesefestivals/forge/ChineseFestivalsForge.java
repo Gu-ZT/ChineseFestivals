@@ -3,7 +3,10 @@ package dev.dubhe.chinesefestivals.forge;
 import dev.architectury.platform.forge.EventBuses;
 import dev.dubhe.chinesefestivals.ChineseFestivals;
 import dev.dubhe.chinesefestivals.commands.DebugCommands;
-import dev.dubhe.chinesefestivals.festivals.MoonFestival;
+import dev.dubhe.chinesefestivals.festivals.IFestival;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
@@ -13,6 +16,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
+
+import java.util.Map;
 
 @Mod(ChineseFestivals.MOD_ID)
 public class ChineseFestivalsForge {
@@ -34,9 +39,12 @@ public class ChineseFestivalsForge {
         @SubscribeEvent
         @OnlyIn(Dist.CLIENT)
         public static void register(RegisterEvent event) {
-            event.register(ForgeRegistries.Keys.BLOCKS, ChineseFestivals.of("mooncakes"), () -> MoonFestival.MOONCAKES);
-            event.register(ForgeRegistries.Keys.ITEMS, ChineseFestivals.of("mooncakes"), () -> MoonFestival.MOONCAKES_ITEM);
-            event.register(ForgeRegistries.Keys.ITEMS, ChineseFestivals.of("mooncake"), () -> MoonFestival.MOONCAKE_ITEM);
+            for (Map.Entry<ResourceLocation, Block> entry : IFestival.BLOCK_REGISTER.entrySet()) {
+                event.register(ForgeRegistries.Keys.BLOCKS, entry.getKey(), entry::getValue);
+            }
+            for (Map.Entry<ResourceLocation, Item> entry : IFestival.ITEM_REGISTER.entrySet()) {
+                event.register(ForgeRegistries.Keys.ITEMS, entry.getKey(), entry::getValue);
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ package dev.dubhe.chinesefestivals.mixins;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import dev.dubhe.chinesefestivals.ChineseFestivals;
+import dev.dubhe.chinesefestivals.festivals.Festivals;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -41,10 +42,10 @@ public abstract class LevelRendererMixin {
     private void renderLevel(PoseStack poseStack, float f, long l, boolean bl, Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f matrix4f, CallbackInfo ci) {
         if (this.level == null) return;
         if (this.level.getGameTime() % 600 == 0) {
-            new Thread(ChineseFestivals::refresh).start();
+            new Thread(Festivals::refresh).start();
         }
-        if (ChineseFestivals.hasChanged) {
-            ChineseFestivals.hasChanged = false;
+        if (Festivals.hasChanged) {
+            Festivals.hasChanged = false;
             this.minecraft.levelRenderer.allChanged();
         }
     }
@@ -52,7 +53,7 @@ public abstract class LevelRendererMixin {
     @Inject(method = "renderSky", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/BufferUploader;drawWithShader(Lcom/mojang/blaze3d/vertex/BufferBuilder$RenderedBuffer;)V", ordinal = 2), locals = LocalCapture.CAPTURE_FAILHARD)
     private void renderSky(PoseStack poseStack, Matrix4f matrix4f, float f, Camera camera, boolean bl, Runnable runnable, CallbackInfo ci, FogType fogType, Vec3 vec3, float g, float h, float i, BufferBuilder bufferBuilder, ShaderInstance shaderInstance, float[] fs, float j, Matrix4f matrix4f3, float l, int s, int t, int n, float u, float p, float q, float r) {
         if (
-                !ChineseFestivals.MOON_FESTIVAL.isNow() ||
+                !Festivals.MOON_FESTIVAL.isNow() ||
                         this.level == null
         ) return;
         RenderSystem.setShaderTexture(0, chineseFestivals$MOON_LOCATION);
@@ -82,6 +83,6 @@ public abstract class LevelRendererMixin {
 
     @ModifyConstant(method = "renderSky", constant = @Constant(floatValue = 20.0f))
     private float injected(float x) {
-        return ChineseFestivals.MOON_FESTIVAL.isNow() ? 0.0f : x;
+        return Festivals.MOON_FESTIVAL.isNow() ? 0.0f : x;
     }
 }

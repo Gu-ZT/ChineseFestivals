@@ -1,18 +1,19 @@
 package dev.dubhe.chinesefestivals.mixins;
 
-import dev.dubhe.chinesefestivals.ChineseFestivals;
-import dev.dubhe.chinesefestivals.festivals.MoonFestival;
+import dev.dubhe.chinesefestivals.festivals.Festivals;
+import dev.dubhe.chinesefestivals.festivals.IFestival;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.client.renderer.ItemModelShaper;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Map;
 
 @Mixin(ItemModelShaper.class)
 public abstract class ItemModelShaperMixin {
@@ -27,10 +28,13 @@ public abstract class ItemModelShaperMixin {
 
     @Inject(method = "getItemModel(Lnet/minecraft/world/item/Item;)Lnet/minecraft/client/resources/model/BakedModel;", at = @At("HEAD"), cancellable = true)
     private void getItemModel(Item item, CallbackInfoReturnable<BakedModel> cir) {
-        if (ChineseFestivals.MOON_FESTIVAL.isNow()) {
-            if (item == Items.CAKE) item = MoonFestival.MOONCAKES_ITEM;
-            else if (item == Items.PUMPKIN_PIE) item = MoonFestival.MOONCAKE_ITEM;
-            cir.setReturnValue(this.shapesCache.get(getIndex(item)));
+        for (IFestival festival : Festivals.FESTIVALS) {
+            if (festival.isNow()) for (Map.Entry<Item, Item> entry : festival.getItemReplace().entrySet()) {
+                if (item == entry.getKey()) {
+                    cir.setReturnValue(this.shapesCache.get(getIndex(entry.getValue())));
+                    return;
+                }
+            }
         }
     }
 }
