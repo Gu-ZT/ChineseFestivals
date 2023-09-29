@@ -44,7 +44,6 @@ public abstract class LevelRendererMixin {
             new Thread(ChineseFestivals::refresh).start();
         }
         if (ChineseFestivals.hasChanged) {
-            ChineseFestivals.LOGGER.info("hasChanged");
             ChineseFestivals.hasChanged = false;
             this.minecraft.levelRenderer.allChanged();
         }
