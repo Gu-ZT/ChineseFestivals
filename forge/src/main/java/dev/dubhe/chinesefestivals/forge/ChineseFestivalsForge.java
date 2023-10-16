@@ -1,8 +1,8 @@
 package dev.dubhe.chinesefestivals.forge;
 
-import dev.architectury.platform.forge.EventBuses;
 import dev.dubhe.chinesefestivals.ChineseFestivals;
 import dev.dubhe.chinesefestivals.commands.DebugCommands;
+import dev.dubhe.chinesefestivals.festivals.IFactory;
 import dev.dubhe.chinesefestivals.festivals.IFestival;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -24,7 +24,6 @@ public class ChineseFestivalsForge {
     @OnlyIn(Dist.CLIENT)
     public ChineseFestivalsForge() {
         // Submit our event bus to let architectury register our content on the right time
-        EventBuses.registerModEventBus(ChineseFestivals.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
         ChineseFestivals.init();
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -39,11 +38,11 @@ public class ChineseFestivalsForge {
         @SubscribeEvent
         @OnlyIn(Dist.CLIENT)
         public static void register(RegisterEvent event) {
-            for (Map.Entry<ResourceLocation, Block> entry : IFestival.BLOCK_REGISTER.entrySet()) {
-                event.register(ForgeRegistries.Keys.BLOCKS, entry.getKey(), entry::getValue);
+            for (Map.Entry<ResourceLocation, IFactory<Block>> entry : IFestival.BLOCK_REGISTER.entrySet()) {
+                event.register(ForgeRegistries.Keys.BLOCKS, entry.getKey(), () -> entry.getValue().get());
             }
-            for (Map.Entry<ResourceLocation, Item> entry : IFestival.ITEM_REGISTER.entrySet()) {
-                event.register(ForgeRegistries.Keys.ITEMS, entry.getKey(), entry::getValue);
+            for (Map.Entry<ResourceLocation, IFactory<Item>> entry : IFestival.ITEM_REGISTER.entrySet()) {
+                event.register(ForgeRegistries.Keys.ITEMS, entry.getKey(), () -> entry.getValue().get());
             }
         }
     }

@@ -1,6 +1,7 @@
 package dev.dubhe.chinesefestivals.mixins;
 
 import dev.dubhe.chinesefestivals.festivals.Festivals;
+import dev.dubhe.chinesefestivals.festivals.IFactory;
 import dev.dubhe.chinesefestivals.festivals.IFestival;
 import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.resources.model.BakedModel;
@@ -27,9 +28,9 @@ public abstract class BlockModelShaperMixin {
     @Inject(method = "getBlockModel", at = @At("RETURN"), cancellable = true)
     private void getBlockModel(BlockState blockState, CallbackInfoReturnable<BakedModel> cir) {
         for (IFestival festival : Festivals.FESTIVALS) {
-            if (festival.isNow()) for (Map.Entry<Block, Block> entry : festival.getBlockReplace().entrySet()) {
+            if (festival.isNow()) for (Map.Entry<Block, IFactory<Block>> entry : festival.getBlockReplace().entrySet()) {
                 if (blockState.is(entry.getKey())) {
-                    ResourceLocation location = BuiltInRegistries.BLOCK.getKey(entry.getValue());
+                    ResourceLocation location = BuiltInRegistries.BLOCK.getKey(entry.getValue().get());
                     BakedModel bakedmodel = this.modelManager.getModel(BlockModelShaper.stateToModelLocation(location, blockState));
                     cir.setReturnValue(bakedmodel);
                     return;

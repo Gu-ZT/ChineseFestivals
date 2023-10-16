@@ -18,7 +18,7 @@ public abstract class LanguageMixin {
     private void getOrDefault(String string, CallbackInfoReturnable<String> cir) {
         for (IFestival festival : Festivals.FESTIVALS) {
             if (festival.isNow()) {
-                String string1 = festival.getTranslationReplace().getOrDefault(string, null);
+                String string1 = festival.getTranslationReplace().getOrDefault(string, () -> null).get();
                 if (string1 != null) {
                     cir.setReturnValue(this.getOrDefault(string1, string1));
                     return;

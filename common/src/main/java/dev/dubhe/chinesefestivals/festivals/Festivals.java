@@ -19,7 +19,7 @@ public class Festivals {
     // 中秋节
     public static final IFestival MOON_FESTIVAL = new MoonFestival();
     // 重阳节
-    public static final IFestival DOUBLE_NINTH_FESTIVAL = new LunarFestival("double_ninth", 9, 9);
+    public static final IFestival DOUBLE_NINTH_FESTIVAL = new DoubleNinthFestival();
     // 腊八节
     public static final IFestival LABA_FESTIVAL = new LunarFestival("laba", 12, 8);
 

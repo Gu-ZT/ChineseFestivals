@@ -1,6 +1,7 @@
 package dev.dubhe.chinesefestivals.mixins;
 
 import dev.dubhe.chinesefestivals.festivals.Festivals;
+import dev.dubhe.chinesefestivals.festivals.IFactory;
 import dev.dubhe.chinesefestivals.festivals.IFestival;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.client.renderer.ItemModelShaper;
@@ -29,9 +30,9 @@ public abstract class ItemModelShaperMixin {
     @Inject(method = "getItemModel(Lnet/minecraft/world/item/Item;)Lnet/minecraft/client/resources/model/BakedModel;", at = @At("HEAD"), cancellable = true)
     private void getItemModel(Item item, CallbackInfoReturnable<BakedModel> cir) {
         for (IFestival festival : Festivals.FESTIVALS) {
-            if (festival.isNow()) for (Map.Entry<Item, Item> entry : festival.getItemReplace().entrySet()) {
+            if (festival.isNow()) for (Map.Entry<Item, IFactory<Item>> entry : festival.getItemReplace().entrySet()) {
                 if (item == entry.getKey()) {
-                    cir.setReturnValue(this.shapesCache.get(getIndex(entry.getValue())));
+                    cir.setReturnValue(this.shapesCache.get(getIndex(entry.getValue().get())));
                     return;
                 }
             }
