@@ -2,8 +2,6 @@ plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
-archivesBaseName = archivesBaseName + "-forge"
-
 architectury {
     platformSetupLoomIde()
     forge()
@@ -45,12 +43,12 @@ remapJar {
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
     archiveClassifier.set(null)
+    archiveFileName = "${archivesBaseName}-${project.name}-${version}"
 }
 
 jar {
     archiveClassifier.set("dev")
 }
-
 sourcesJar {
     def commonSources = project(":common").sourcesJar
     dependsOn commonSources
