@@ -44,7 +44,7 @@ public class Festival implements IFestival {
         int currentMonth = month.get();
         int currentDay = day.get();
         boolean flag;
-        if (this.id.equals(ChineseFestivals.debugFestival)) flag = true;
+        if (this == ChineseFestivals.debugFestival) flag = true;
         else flag = inFestival(currentMonth, currentDay);
         if (flag != this.flag) {
             Festivals.hasChanged = true;

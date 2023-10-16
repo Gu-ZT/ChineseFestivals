@@ -12,21 +12,33 @@ import net.minecraft.network.chat.Component;
 
 public class DebugCommands {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        LiteralArgumentBuilder<CommandSourceStack> command = Commands.literal("festivals").requires(commandSourceStack -> commandSourceStack.hasPermission(3)).then(DebugCommands.genCommands());
+        LiteralArgumentBuilder<CommandSourceStack> command = Commands.literal("festivals")
+                .executes(context -> {
+                    context.getSource().sendSuccess(() -> Component.literal("This festival is:"), false);
+                    for (IFestival festival : Festivals.FESTIVALS) {
+                        if (festival.isNow())
+                            context.getSource().sendSuccess(() -> Component.literal(festival.getId()), false);
+                    }
+                    return 0;
+                })
+                .then(DebugCommands.genCommands());
         dispatcher.register(command);
     }
 
     public static ArgumentBuilder<CommandSourceStack, LiteralArgumentBuilder<CommandSourceStack>> genCommands() {
-        ArgumentBuilder<CommandSourceStack, LiteralArgumentBuilder<CommandSourceStack>> node = Commands.literal("set");
+        ArgumentBuilder<CommandSourceStack, LiteralArgumentBuilder<CommandSourceStack>> node = Commands.literal("set").requires(commandSourceStack -> commandSourceStack.hasPermission(3));
         node.then(Commands.literal("none").executes(context -> {
-            ChineseFestivals.debugFestival = "none";
-            context.getSource().sendSuccess(() -> Component.literal("Festivals have been set as " + ChineseFestivals.debugFestival), false);
+            ChineseFestivals.debugFestival = null;
+            context.getSource().sendSuccess(() -> Component.literal("Festivals have been set as " + ChineseFestivals.debugFestival.getId()), false);
             return 0;
         }));
         for (IFestival festival : Festivals.FESTIVALS) {
             node.then(Commands.literal(festival.getId()).executes(context -> {
-                ChineseFestivals.debugFestival = festival.getId();
-                context.getSource().sendSuccess(() -> Component.literal("Festivals have been set as " + ChineseFestivals.debugFestival), false);
+                IFestival oldFestival = ChineseFestivals.debugFestival;
+                ChineseFestivals.debugFestival = festival;
+                festival.refresh();
+                if (oldFestival != null) oldFestival.refresh();
+                context.getSource().sendSuccess(() -> Component.literal("Festivals have been set as " + ChineseFestivals.debugFestival.getId()), true);
                 return 0;
             }));
         }
