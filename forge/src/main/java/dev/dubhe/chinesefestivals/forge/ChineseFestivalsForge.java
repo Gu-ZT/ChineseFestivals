@@ -1,5 +1,6 @@
 package dev.dubhe.chinesefestivals.forge;
 
+import dev.architectury.platform.forge.EventBuses;
 import dev.dubhe.chinesefestivals.ChineseFestivals;
 import dev.dubhe.chinesefestivals.commands.DebugCommands;
 import dev.dubhe.chinesefestivals.festivals.IFactory;
@@ -24,6 +25,7 @@ public class ChineseFestivalsForge {
     @OnlyIn(Dist.CLIENT)
     public ChineseFestivalsForge() {
         // Submit our event bus to let architectury register our content on the right time
+        EventBuses.registerModEventBus(ChineseFestivals.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
         ChineseFestivals.init();
         MinecraftForge.EVENT_BUS.register(this);
     }
