@@ -43,7 +43,7 @@ remapJar {
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
     archiveClassifier.set(null)
-    archiveFileName = "${archivesBaseName}-${project.name}-${version}"
+    archiveFileName = "${archivesBaseName}-${project.name}-${version}.jar"
 }
 
 jar {
