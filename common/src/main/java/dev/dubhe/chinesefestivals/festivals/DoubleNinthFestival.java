@@ -5,24 +5,25 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class DoubleNinthFestival extends LunarFestival {
-    public static final IFactory<Item> FLOWER_CAKE = IFestival.createItem("flower_cake", new Item.Properties().food(Foods.PUMPKIN_PIE), Item::new);
+    public static final Supplier<Item> FLOWER_CAKE = IFestival.createItem("flower_cake", new Item.Properties().food(Foods.PUMPKIN_PIE), Item::new);
 
     public DoubleNinthFestival() {
         super("double_ninth", 9, 9);
     }
 
     @Override
-    public Map<Item, IFactory<Item>> getItemReplace() {
-        Map<Item, IFactory<Item>> map = super.getItemReplace();
+    public Map<Item, Supplier<Item>> getItemReplace() {
+        Map<Item, Supplier<Item>> map = super.getItemReplace();
         map.put(Items.COOKIE, FLOWER_CAKE);
         return map;
     }
 
     @Override
-    public Map<String, IFactory<String>> getTranslationReplace() {
-        Map<String, IFactory<String>> map = super.getTranslationReplace();
+    public Map<String, Supplier<String>> getTranslationReplace() {
+        Map<String, Supplier<String>> map = super.getTranslationReplace();
         map.put("item.minecraft.cookie", () -> "item.chinesefestivals.flower_cake");
         return map;
     }

@@ -2,7 +2,9 @@ package dev.dubhe.chinesefestivals.festivals;
 
 import net.minecraft.world.item.Item;
 
-public class ItemFactory<T extends Item> implements IFactory<T> {
+import java.util.function.Supplier;
+
+public class ItemFactory<T extends Item> implements Supplier<T> {
     public T item = null;
     public final Item.Properties properties;
     public final ItemCreator<T> creator;

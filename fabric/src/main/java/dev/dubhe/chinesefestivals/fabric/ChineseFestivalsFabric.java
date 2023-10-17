@@ -1,7 +1,6 @@
 package dev.dubhe.chinesefestivals.fabric;
 
 import dev.dubhe.chinesefestivals.ChineseFestivals;
-import dev.dubhe.chinesefestivals.festivals.IFactory;
 import dev.dubhe.chinesefestivals.festivals.IFestival;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.core.Registry;
@@ -11,15 +10,16 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class ChineseFestivalsFabric implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ChineseFestivals.init();
-        for (Map.Entry<ResourceLocation, IFactory<Block>> entry : IFestival.BLOCK_REGISTER.entrySet()) {
+        for (Map.Entry<ResourceLocation, Supplier<Block>> entry : IFestival.BLOCK_REGISTER.entrySet()) {
             Registry.register(BuiltInRegistries.BLOCK, entry.getKey(), entry.getValue().get());
         }
-        for (Map.Entry<ResourceLocation, IFactory<Item>> entry : IFestival.ITEM_REGISTER.entrySet()) {
+        for (Map.Entry<ResourceLocation, Supplier<Item>> entry : IFestival.ITEM_REGISTER.entrySet()) {
             Registry.register(BuiltInRegistries.ITEM, entry.getKey(), entry.getValue().get());
         }
     }

@@ -3,7 +3,9 @@ package dev.dubhe.chinesefestivals.festivals;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
-public class BlockFactory<T extends Block> implements IFactory<T> {
+import java.util.function.Supplier;
+
+public class BlockFactory<T extends Block> implements Supplier<T> {
     public T block = null;
     public final BlockBehaviour.Properties properties;
     public final BlockCreator<T> creator;

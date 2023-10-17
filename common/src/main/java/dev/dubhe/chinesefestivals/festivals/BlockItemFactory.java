@@ -3,13 +3,15 @@ package dev.dubhe.chinesefestivals.festivals;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
-public class BlockItemFactory<B extends Block, T extends Item> implements IFactory<T> {
+import java.util.function.Supplier;
+
+public class BlockItemFactory<B extends Block, T extends Item> implements Supplier<T> {
     public T item = null;
-    public final IFactory<B> block;
+    public final Supplier<B> block;
     public final Item.Properties properties;
     public final ItemCreator<T> creator;
 
-    public BlockItemFactory(IFactory<B> block, Item.Properties properties, ItemCreator<T> creator) {
+    public BlockItemFactory(Supplier<B> block, Item.Properties properties, ItemCreator<T> creator) {
         this.block = block;
         this.properties = properties;
         this.creator = creator;
