@@ -30,7 +30,7 @@ public abstract class ForgeItemModelShaperMixin extends ItemModelShaper {
         super(arg);
     }
 
-    @Inject(method = "getItemModel", remap = false, at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getItemModel", at = @At("HEAD"), cancellable = true)
     private void getItemModel(Item item, CallbackInfoReturnable<BakedModel> cir) {
         ChineseFestivals.LOGGER.info("test");
         for (IFestival festival : Festivals.FESTIVALS) {
