@@ -9,7 +9,7 @@ architectury {
 
 loom {
     forge {
-        mixinConfig "chinesefestivals-common.mixins.json"
+        mixinConfig "chinesefestivals.mixins.json,chinesefestivals-common.mixins.json"
     }
 }
 

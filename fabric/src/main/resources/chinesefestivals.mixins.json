@@ -6,7 +6,8 @@
   "mixins": [
   ],
   "client": [
-    "CommandsMixin"
+    "CommandsMixin",
+    "ItemModelShaperMixin"
   ],
   "injectors": {
     "defaultRequire": 1
