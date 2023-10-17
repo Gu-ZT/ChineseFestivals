@@ -29,7 +29,6 @@ public abstract class ItemModelShaperMixin {
 
     @Inject(method = "getItemModel(Lnet/minecraft/world/item/Item;)Lnet/minecraft/client/resources/model/BakedModel;", at = @At("HEAD"), cancellable = true)
     private void getItemModel(Item item, CallbackInfoReturnable<BakedModel> cir) {
-        ChineseFestivals.LOGGER.info("test");
         for (IFestival festival : Festivals.FESTIVALS) {
             if (festival.isNow()) {
                 Supplier<Item> item1 = festival.getItemReplace().getOrDefault(item, null);
