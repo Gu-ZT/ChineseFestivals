@@ -7,6 +7,12 @@ architectury {
     forge()
 }
 
+loom {
+    forge {
+        mixinConfig "chinesefestivals-common.mixins.json"
+    }
+}
+
 configurations {
     common
     shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
@@ -49,6 +55,7 @@ remapJar {
 jar {
     archiveClassifier.set("dev")
 }
+
 sourcesJar {
     def commonSources = project(":common").sourcesJar
     dependsOn commonSources
