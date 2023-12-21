@@ -44,7 +44,7 @@ public class CampfireRendererMixin {
                 ItemStack itemStack = nonNullList.get(l);
                 if (itemStack != ItemStack.EMPTY) {
                     poseStack.pushPose();
-                    poseStack.translate(0.5F, 0.33921875F + n * 0.025F, 0.5F);
+                    poseStack.translate(0.5F, 0.33921875F + n * 0.018F, 0.5F);
                     Direction direction2 = Direction.from2DDataValue((l + direction.get2DDataValue()) % 4);
                     float g = -direction2.toYRot();
                     poseStack.mulPose(Axis.YP.rotationDegrees(g));
