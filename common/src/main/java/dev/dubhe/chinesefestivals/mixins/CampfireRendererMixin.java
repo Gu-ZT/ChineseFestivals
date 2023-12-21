@@ -30,7 +30,8 @@ public class CampfireRendererMixin {
 
     @Inject(method = "render(Lnet/minecraft/world/level/block/entity/CampfireBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V", at = @At("HEAD"), cancellable = true)
     public void render(CampfireBlockEntity campfireBlockEntity, float f, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, CallbackInfo ci) {
-        if (Festivals.DONG_ZHI_FESTIVAL.isNow()) {
+        Boolean bl = campfireBlockEntity.getBlockState().getValue(CampfireBlock.LIT);
+        if (Festivals.DONG_ZHI_FESTIVAL.isNow() && bl) {
             Direction direction = campfireBlockEntity.getBlockState().getValue(CampfireBlock.FACING);
             NonNullList<ItemStack> nonNullList = campfireBlockEntity.getItems();
             int k = (int) campfireBlockEntity.getBlockPos().asLong();
@@ -47,8 +48,8 @@ public class CampfireRendererMixin {
                     Direction direction2 = Direction.from2DDataValue((l + direction.get2DDataValue()) % 4);
                     float g = -direction2.toYRot();
                     poseStack.mulPose(Axis.YP.rotationDegrees(g));
-                    poseStack.mulPose(Axis.XP.rotationDegrees((float) (90.0F + 4.0F * n)));
-                    poseStack.mulPose(Axis.ZP.rotationDegrees((float) (4.0F * n)));
+                    poseStack.mulPose(Axis.XP.rotationDegrees((float) (90.0F + 2.5F * n)));
+                    poseStack.mulPose(Axis.ZP.rotationDegrees((float) (2.5F * n)));
                     poseStack.translate(-0.3125F, -0.3125F, 0.0F);
                     poseStack.scale(0.375F, 0.375F, 0.375F);
                     this.itemRenderer.renderStatic(itemStack, ItemDisplayContext.FIXED, i, j, poseStack, multiBufferSource, campfireBlockEntity.getLevel(), k + l);
