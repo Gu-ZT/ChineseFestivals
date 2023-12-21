@@ -15,6 +15,7 @@ public class DongZhiFestival extends SolarTermFestival {
     public static final Supplier<Block> HOTPOT_S = IFestival.createBlock("hotpot_s", BlockBehaviour.Properties.of().forceSolidOn().strength(0.5f).sound(SoundType.WOOL).pushReaction(PushReaction.DESTROY), (properties) -> new CampfireBlock(true, 1, properties));
     public static final Supplier<Item> HOTPOT_N_ITEM = IFestival.createBlockItem("hotpot_n", HOTPOT_N, new Item.Properties().stacksTo(1), BlockItem::new);
     public static final Supplier<Item> HOTPOT_S_ITEM = IFestival.createBlockItem("hotpot_s", HOTPOT_S, new Item.Properties().stacksTo(1), BlockItem::new);
+    public static final Supplier<Item> DUMPLINGS = IFestival.createItem("dumplings", new Item.Properties().stacksTo(1), Item::new);
 
     public DongZhiFestival() {
         super("dong_zhi", SolarTerm.DONG_ZHI);
@@ -33,6 +34,7 @@ public class DongZhiFestival extends SolarTermFestival {
         Map<Item, Supplier<Item>> map = super.getItemReplace();
         map.put(Items.CAMPFIRE, HOTPOT_S_ITEM);
         map.put(Items.SOUL_CAMPFIRE, HOTPOT_N_ITEM);
+        map.put(Items.RABBIT_STEW, DUMPLINGS);
         return map;
     }
 
@@ -41,6 +43,7 @@ public class DongZhiFestival extends SolarTermFestival {
         Map<String, Supplier<String>> map = super.getTranslationReplace();
         map.put("item.minecraft.campfire", () -> "item.chinesefestivals.hotpot_s");
         map.put("item.minecraft.soul_campfire", () -> "item.chinesefestivals.hotpot_n");
+        map.put("item.minecraft.rabbit_stew", () -> "item.chinesefestivals.dumplings");
         map.put("block.minecraft.campfire", () -> "block.chinesefestivals.hotpot_s");
         map.put("block.minecraft.soul_campfire", () -> "block.chinesefestivals.hotpot_n");
         return map;

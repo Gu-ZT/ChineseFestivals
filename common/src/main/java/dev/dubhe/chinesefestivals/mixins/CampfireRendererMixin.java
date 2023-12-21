@@ -50,7 +50,7 @@ public class CampfireRendererMixin {
                     poseStack.mulPose(Axis.YP.rotationDegrees(g));
                     poseStack.mulPose(Axis.XP.rotationDegrees((float) (90.0F + 2.5F * n)));
                     poseStack.mulPose(Axis.ZP.rotationDegrees((float) (2.5F * n)));
-                    poseStack.translate(-0.3125F, -0.3125F, 0.0F);
+                    poseStack.translate(-0.2625F, -0.2625F, 0.0F);
                     poseStack.scale(0.375F, 0.375F, 0.375F);
                     this.itemRenderer.renderStatic(itemStack, ItemDisplayContext.FIXED, i, j, poseStack, multiBufferSource, campfireBlockEntity.getLevel(), k + l);
                     poseStack.popPose();
