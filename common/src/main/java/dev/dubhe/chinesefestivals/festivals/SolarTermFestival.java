@@ -31,7 +31,7 @@ public class SolarTermFestival implements IFestival {
         else {
             Lunar lunar = new Lunar();
             JieQi jieQi = lunar.getCurrentJieQi();
-            flag = jieQi != null && jieQi.getName().equals(this.solarTerm.name());
+            flag = jieQi != null && jieQi.getName().equals(this.solarTerm.name);
         }
         if (flag != this.flag) {
             Festivals.hasChanged = true;
