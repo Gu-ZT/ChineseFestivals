@@ -1,5 +1,9 @@
 {
   "block.chinesefestivals.mooncakes": "月餅",
   "item.chinesefestivals.mooncake": "月餅",
-  "item.chinesefestivals.flower_cake": "重陽糕"
+  "item.chinesefestivals.flower_cake": "重陽糕",
+  "item.chinesefestivals.hotpot_s": "九宮格火鍋",
+  "item.chinesefestivals.hotpot_n": "清湯火鍋",
+  "block.chinesefestivals.hotpot_s": "九宮格火鍋",
+  "block.chinesefestivals.hotpot_n": "清湯火鍋"
 }

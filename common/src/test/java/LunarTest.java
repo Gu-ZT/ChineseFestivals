@@ -12,5 +12,9 @@ public class LunarTest {
         calendar.setTime(new Date());
         System.out.println(lunar);
         System.out.printf("%s月%s日\n", calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DATE) + 1);
+        lunar = new Lunar(2023,11,10);
+        System.out.println(lunar);
+        System.out.printf("%s月%s日\n", calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DATE) + 1);
+        System.out.println(lunar.getCurrentJieQi().getName());
     }
 }
