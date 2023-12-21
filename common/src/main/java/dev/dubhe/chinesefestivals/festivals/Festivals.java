@@ -20,6 +20,8 @@ public class Festivals {
     public static final IFestival MOON_FESTIVAL = new MoonFestival();
     // 重阳节
     public static final IFestival DOUBLE_NINTH_FESTIVAL = new DoubleNinthFestival();
+    // 重阳节
+    public static final IFestival DONG_ZHI_FESTIVAL = new DongZhiFestival();
     // 腊八节
     public static final IFestival LABA_FESTIVAL = new LunarFestival("laba", 12, 8);
 
@@ -31,6 +33,7 @@ public class Festivals {
         FESTIVALS.add(QIXI_FESTIVAL);
         FESTIVALS.add(MOON_FESTIVAL);
         FESTIVALS.add(DOUBLE_NINTH_FESTIVAL);
+        FESTIVALS.add(DONG_ZHI_FESTIVAL);
         FESTIVALS.add(LABA_FESTIVAL);
     }
 
