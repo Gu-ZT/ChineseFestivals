@@ -1,5 +1,6 @@
 package dev.dubhe.chinesefestivals.festivals;
 
+import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -13,9 +14,9 @@ import java.util.function.Supplier;
 public class DongZhiFestival extends SolarTermFestival {
     public static final Supplier<Block> HOTPOT_N = IFestival.createBlock("hotpot_n", BlockBehaviour.Properties.of().forceSolidOn().strength(0.5f).sound(SoundType.WOOL).pushReaction(PushReaction.DESTROY), (properties) -> new CampfireBlock(false, 2, properties));
     public static final Supplier<Block> HOTPOT_S = IFestival.createBlock("hotpot_s", BlockBehaviour.Properties.of().forceSolidOn().strength(0.5f).sound(SoundType.WOOL).pushReaction(PushReaction.DESTROY), (properties) -> new CampfireBlock(true, 1, properties));
-    public static final Supplier<Item> HOTPOT_N_ITEM = IFestival.createBlockItem("hotpot_n", HOTPOT_N, new Item.Properties().stacksTo(1), BlockItem::new);
-    public static final Supplier<Item> HOTPOT_S_ITEM = IFestival.createBlockItem("hotpot_s", HOTPOT_S, new Item.Properties().stacksTo(1), BlockItem::new);
-    public static final Supplier<Item> DUMPLINGS = IFestival.createItem("dumplings", new Item.Properties().stacksTo(1), Item::new);
+    public static final Supplier<Item> HOTPOT_N_ITEM = IFestival.createBlockItem("hotpot_n", HOTPOT_N, new Item.Properties(), BlockItem::new);
+    public static final Supplier<Item> HOTPOT_S_ITEM = IFestival.createBlockItem("hotpot_s", HOTPOT_S, new Item.Properties(), BlockItem::new);
+    public static final Supplier<Item> DUMPLINGS = IFestival.createItem("dumplings", new Item.Properties().food(Foods.RABBIT_STEW), Item::new);
 
     public DongZhiFestival() {
         super("dong_zhi", SolarTerm.DONG_ZHI);

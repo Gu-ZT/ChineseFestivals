@@ -7,7 +7,7 @@ public class Festivals {
     public static final List<IFestival> FESTIVALS = new Vector<>();
     public static boolean hasChanged = false;
     // 春节
-    public static final IFestival CHINESE_SPRING_FESTIVAL = new LunarFestival("spring", 12, 23, 1, 5);
+    public static final IFestival CHINESE_SPRING_FESTIVAL = new LunarFestival("spring", 12, 23, 1, 8);
     // 元旦节
     public static final IFestival NEW_YEAR = new Festival("new_year", 1, 1);
     // 元宵节
@@ -23,7 +23,7 @@ public class Festivals {
     // 重阳节
     public static final IFestival DONG_ZHI_FESTIVAL = new DongZhiFestival();
     // 腊八节
-    public static final IFestival LABA_FESTIVAL = new LunarFestival("laba", 12, 8);
+    public static final IFestival LABA_FESTIVAL = new LabaFestival();
 
     public static void init() {
         FESTIVALS.add(CHINESE_SPRING_FESTIVAL);

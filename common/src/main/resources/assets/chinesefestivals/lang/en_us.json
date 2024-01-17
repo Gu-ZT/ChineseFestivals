@@ -1,10 +1,12 @@
 {
-  "block.chinesefestivals.mooncakes": "Mooncakes",
   "item.chinesefestivals.mooncake": "Mooncake",
   "item.chinesefestivals.flower_cake": "Flower cake",
   "item.chinesefestivals.hotpot_s": "Jiugongge Hot Pot",
   "item.chinesefestivals.hotpot_n": "Clear Soup Hot Pot",
   "item.chinesefestivals.dumplings": "Dumplings",
+  "item.chinesefestivals.laba_congee": "Laba Congee",
+  "item.chinesefestivals.sweet_dumplings": "Sweet Dumplings",
+  "block.chinesefestivals.mooncakes": "Mooncakes",
   "block.chinesefestivals.hotpot_s": "Jiugongge Hot Pot",
   "block.chinesefestivals.hotpot_n": "Clear Soup Hot Pot"
 }
