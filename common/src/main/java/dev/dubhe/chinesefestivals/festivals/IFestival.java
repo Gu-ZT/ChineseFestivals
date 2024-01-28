@@ -1,14 +1,19 @@
 package dev.dubhe.chinesefestivals.festivals;
 
 import dev.dubhe.chinesefestivals.ChineseFestivals;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public interface IFestival {
@@ -22,15 +27,19 @@ public interface IFestival {
     void refresh();
 
     default Map<Item, Supplier<Item>> getItemReplace() {
-        return new ConcurrentHashMap<>();
+        return Collections.emptyMap();
     }
 
     default Map<Block, Supplier<Block>> getBlockReplace() {
-        return new ConcurrentHashMap<>();
+        return Collections.emptyMap();
     }
 
     default Map<String, Supplier<String>> getTranslationReplace() {
-        return new ConcurrentHashMap<>();
+        return Collections.emptyMap();
+    }
+
+    default ModelResourceLocation getItemFrameReplace(ItemFrame itemFrame, ItemStack innerItem) {
+        return null;
     }
 
     static Supplier<Block> createBlock(String id, BlockBehaviour.Properties properties, BlockFactory.BlockCreator<Block> creator) {

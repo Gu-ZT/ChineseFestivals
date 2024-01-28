@@ -7,7 +7,7 @@ public class Festivals {
     public static final List<IFestival> FESTIVALS = new Vector<>();
     public static boolean hasChanged = false;
     // 春节
-    public static final IFestival CHINESE_SPRING_FESTIVAL = new LunarFestival("spring", 12, 23, 1, 8);
+    public static final IFestival CHINESE_SPRING_FESTIVAL = new SpringFestival();
     // 元旦节
     public static final IFestival NEW_YEAR = new Festival("new_year", 1, 1);
     // 元宵节
@@ -38,8 +38,6 @@ public class Festivals {
     }
 
     public static void refresh() {
-        for (IFestival festival : FESTIVALS) {
-            festival.refresh();
-        }
+        FESTIVALS.stream().parallel().forEach(IFestival::refresh);
     }
 }

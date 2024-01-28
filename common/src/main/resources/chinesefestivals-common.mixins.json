@@ -9,6 +9,7 @@
   "client": [
     "BlockModelShaperMixin",
     "CampfireRendererMixin",
+    "ItemFrameRenderMixin",
     "LanguageMixin",
     "LevelRendererMixin"
   ],
