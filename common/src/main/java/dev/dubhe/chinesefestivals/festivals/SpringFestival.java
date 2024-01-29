@@ -1,14 +1,15 @@
 package dev.dubhe.chinesefestivals.festivals;
 
-import dev.dubhe.chinesefestivals.ChineseFestivals;
+import dev.dubhe.chinesefestivals.data.BlockModelData;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.world.entity.decoration.GlowItemFrame;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 public class SpringFestival extends LunarFestival {
-    private static final ModelResourceLocation DARK_PLATE = new ModelResourceLocation(ChineseFestivals.of("dark_plate"), "map=false");
-    private static final ModelResourceLocation PLATE = new ModelResourceLocation(ChineseFestivals.of("plate"), "map=false");
+    private static final ModelResourceLocation DARK_PLATE = IFestival.registerBlockModel(new BlockModelData("plate").property("dark", "true", BooleanProperty::create));
+    private static final ModelResourceLocation PLATE = IFestival.registerBlockModel(new BlockModelData("plate").property("dark", "false", BooleanProperty::create));
 
     public SpringFestival() {
         super("spring", 12, 23, 1, 8);

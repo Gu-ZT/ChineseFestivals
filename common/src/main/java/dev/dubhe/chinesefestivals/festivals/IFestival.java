@@ -1,6 +1,7 @@
 package dev.dubhe.chinesefestivals.festivals;
 
 import dev.dubhe.chinesefestivals.ChineseFestivals;
+import dev.dubhe.chinesefestivals.data.BlockModelData;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.decoration.ItemFrame;
@@ -9,16 +10,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.BiFunction;
-import java.util.function.Function;
+import java.util.*;
 import java.util.function.Supplier;
 
 public interface IFestival {
     Map<ResourceLocation, Supplier<Block>> BLOCK_REGISTER = new HashMap<>();
     Map<ResourceLocation, Supplier<Item>> ITEM_REGISTER = new HashMap<>();
+    Collection<BlockModelData> BLOCK_MODELS = new HashSet<>();
 
     String getId();
 
@@ -59,4 +57,12 @@ public interface IFestival {
         ITEM_REGISTER.put(ChineseFestivals.of(id), itemFactory);
         return itemFactory;
     }
+
+    static ModelResourceLocation registerBlockModel(BlockModelData model) {
+        if (BLOCK_MODELS.stream().parallel().noneMatch(it -> it.resourceLocation.equals(model.resourceLocation))) {
+            BLOCK_MODELS.add(model);
+        }
+        return model.model();
+    }
+
 }
