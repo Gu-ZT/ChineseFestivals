@@ -2,6 +2,7 @@ package dev.dubhe.chinesefestivals.festivals;
 
 import dev.dubhe.chinesefestivals.data.BlockModelData;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.decoration.GlowItemFrame;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.ItemStack;
@@ -21,5 +22,14 @@ public class SpringFestival extends LunarFestival {
             return itemFrame instanceof GlowItemFrame ? PLATE : DARK_PLATE;
         }
         return null;
+    }
+
+    @Override
+    public Component getItemFrameTypeReplace(ItemFrame itemFrame) {
+        if (itemFrame.getXRot() == -90.0 && itemFrame.getItem().getItem().getFoodProperties() != null) {
+            return Component.translatable("entity.chinesefestivals.plate" + (itemFrame instanceof GlowItemFrame ? "" : "_dark"));
+        }
+        return null;
+
     }
 }
