@@ -25,7 +25,7 @@ public abstract class FireworkParticles$StarterMixin extends Particle {
         if (particles == null) {
             ((FireworkParticles$StarterAccessor) instance).invokeCreateParticleShape(d9, d10, d11, d8, d6, d7, j);
         } else {
-            ParticleUtil.createParticleSingleShape(this.x, this.y, this.z, this.random, this::createParticle, d9, particles, d11, d8, d6, d7);
+            ParticleUtil.createParticleSingleShape(this.x, this.y, this.z, this.random, this::createParticle, particles, d11, d8, d6, d7);
         }
     }
 }

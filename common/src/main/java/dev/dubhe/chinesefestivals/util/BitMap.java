@@ -23,7 +23,7 @@ public class BitMap {
             double[][] result = new double[value.length][2];
             for (int i = 0; i < value.length; i++) {
                 int[] pos = value[i];
-                result[i] = new double[] {0.02 * (pos[0] - 128), 0.02 * (pos[1] - 128)};
+                result[i] = new double[] {0.004 * (pos[0] - 128), 0.004 * (pos[1] - 128)};
             }
 
             return result;
