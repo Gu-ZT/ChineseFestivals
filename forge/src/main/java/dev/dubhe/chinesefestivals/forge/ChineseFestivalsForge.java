@@ -4,7 +4,9 @@ import dev.architectury.platform.forge.EventBuses;
 import dev.dubhe.chinesefestivals.ChineseFestivals;
 import dev.dubhe.chinesefestivals.commands.DebugCommands;
 import dev.dubhe.chinesefestivals.festivals.IFestival;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
@@ -41,10 +43,13 @@ public class ChineseFestivalsForge {
         @OnlyIn(Dist.CLIENT)
         public static void register(RegisterEvent event) {
             for (Map.Entry<ResourceLocation, Supplier<Block>> entry : IFestival.BLOCK_REGISTER.entrySet()) {
-                event.register(ForgeRegistries.Keys.BLOCKS, entry.getKey(), () -> entry.getValue().get());
+                event.register(ForgeRegistries.Keys.BLOCKS, entry.getKey(), entry.getValue());
             }
             for (Map.Entry<ResourceLocation, Supplier<Item>> entry : IFestival.ITEM_REGISTER.entrySet()) {
-                event.register(ForgeRegistries.Keys.ITEMS, entry.getKey(), () -> entry.getValue().get());
+                event.register(ForgeRegistries.Keys.ITEMS, entry.getKey(), entry.getValue());
+            }
+            for (Map.Entry<ResourceLocation, Supplier<PaintingVariant>> entry : IFestival.PAINTING_REGISTER.entrySet()) {
+                event.register(ForgeRegistries.Keys.PAINTING_VARIANTS, entry.getKey(), entry.getValue());
             }
         }
     }

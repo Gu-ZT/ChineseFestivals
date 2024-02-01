@@ -10,6 +10,7 @@
   "item.chinesefestivals.laba_congee": "腊八粥",
   "item.chinesefestivals.sweet_dumplings": "汤圆",
   "entity.chinesefestivals.plate": "盘子",
-  "entity.chinesefestivals.plate_dark": "暗色盘子"
-
+  "entity.chinesefestivals.plate_dark": "暗色盘子",
+  "block.chinesefestivals.lantern": "灯笼",
+  "block.chinesefestivals.tall_lantern": "高灯笼"
 }

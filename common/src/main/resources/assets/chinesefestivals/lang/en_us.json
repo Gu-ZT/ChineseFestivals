@@ -10,5 +10,7 @@
   "block.chinesefestivals.hotpot_s": "Jiugongge Hot Pot",
   "block.chinesefestivals.hotpot_n": "Clear Soup Hot Pot",
   "entity.chinesefestivals.plate": "???",
-  "entity.chinesefestivals.plate_dark": "???"
+  "entity.chinesefestivals.plate_dark": "???",
+  "block.chinesefestivals.lantern": "???",
+  "block.chinesefestivals.tall_lantern": "???"
 }
