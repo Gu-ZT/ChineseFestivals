@@ -4,18 +4,20 @@ import dev.dubhe.chinesefestivals.data.BlockModelData;
 import dev.dubhe.chinesefestivals.util.BitMap;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.decoration.*;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LanternBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public class SpringFestival extends LunarFestival {
@@ -96,4 +98,21 @@ public class SpringFestival extends LunarFestival {
     public double[][] getFireworkParticle() {
         return BitMap.DRAGON;
     }
+
+    @Override
+    public Map<Item, Supplier<Item>> getItemReplace() {
+        Map<Item, Supplier<Item>> map = new ConcurrentHashMap<>();
+        map.put(Items.RABBIT_STEW, DongZhiFestival.DUMPLINGS);
+        map.put(Items.MUSHROOM_STEW, LabaFestival.SWEET_DUMPLINGS);
+        return map;
+    }
+
+    @Override
+    public Map<String, Supplier<String>> getTranslationReplace() {
+        Map<String, Supplier<String>> map = new ConcurrentHashMap<>();
+        map.put("item.minecraft.rabbit_stew", () -> "item.chinesefestivals.dumplings");
+        map.put("item.minecraft.mushroom_stew", () -> "item.chinesefestivals.sweet_dumplings");
+        return map;
+    }
+
 }
