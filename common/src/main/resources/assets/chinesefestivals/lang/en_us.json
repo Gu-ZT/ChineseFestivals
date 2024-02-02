@@ -8,5 +8,9 @@
   "item.chinesefestivals.sweet_dumplings": "Sweet Dumplings",
   "block.chinesefestivals.mooncakes": "Mooncakes",
   "block.chinesefestivals.hotpot_s": "Jiugongge Hot Pot",
-  "block.chinesefestivals.hotpot_n": "Clear Soup Hot Pot"
+  "block.chinesefestivals.hotpot_n": "Clear Soup Hot Pot",
+  "entity.chinesefestivals.plate": "Plate",
+  "entity.chinesefestivals.plate_dark": "Dark plate",
+  "block.chinesefestivals.lantern": "Lantern",
+  "block.chinesefestivals.tall_lantern": "Tall Lantern"
 }

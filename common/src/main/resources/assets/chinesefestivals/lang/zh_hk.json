@@ -8,5 +8,9 @@
   "block.chinesefestivals.hotpot_s": "九宮格火鍋",
   "block.chinesefestivals.hotpot_n": "清湯火鍋",
   "item.chinesefestivals.laba_congee": "臘八粥",
-  "item.chinesefestivals.sweet_dumplings": "湯圓"
+  "item.chinesefestivals.sweet_dumplings": "湯圓",
+  "entity.chinesefestivals.plate": "盤子",
+  "entity.chinesefestivals.plate_dark": "暗色盤子",
+  "block.chinesefestivals.lantern": "燈籠",
+  "block.chinesefestivals.tall_lantern": "高燈籠"
 }

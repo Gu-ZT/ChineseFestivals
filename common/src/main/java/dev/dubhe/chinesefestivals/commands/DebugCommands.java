@@ -1,6 +1,9 @@
 package dev.dubhe.chinesefestivals.commands;
 
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.FloatArgumentType;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import dev.dubhe.chinesefestivals.ChineseFestivals;
@@ -11,6 +14,8 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 
 public class DebugCommands {
+    public static float test = 0;
+
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         LiteralArgumentBuilder<CommandSourceStack> command = Commands.literal("festivals")
                 .executes(context -> {
@@ -21,7 +26,11 @@ public class DebugCommands {
                     }
                     return 0;
                 })
-                .then(DebugCommands.genCommands());
+                .then(DebugCommands.genCommands()).then(Commands.literal("test").then(Commands.argument("val", FloatArgumentType.floatArg()).executes((context) -> {
+                    test = FloatArgumentType.getFloat(context, "val");
+                    context.getSource().sendSuccess(() -> Component.literal("success"), false);
+                    return Command.SINGLE_SUCCESS;
+                })));
         dispatcher.register(command);
     }
 

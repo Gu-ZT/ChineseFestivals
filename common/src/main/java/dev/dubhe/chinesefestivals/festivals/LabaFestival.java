@@ -5,6 +5,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public class LabaFestival extends LunarFestival {
@@ -17,7 +18,7 @@ public class LabaFestival extends LunarFestival {
 
     @Override
     public Map<Item, Supplier<Item>> getItemReplace() {
-        Map<Item, Supplier<Item>> map = super.getItemReplace();
+        Map<Item, Supplier<Item>> map = new ConcurrentHashMap<>();
         map.put(Items.MUSHROOM_STEW, LABA_CONGEE);
         map.put(Items.RABBIT_STEW, SWEET_DUMPLINGS);
         return map;
@@ -25,7 +26,7 @@ public class LabaFestival extends LunarFestival {
 
     @Override
     public Map<String, Supplier<String>> getTranslationReplace() {
-        Map<String, Supplier<String>> map = super.getTranslationReplace();
+        Map<String, Supplier<String>> map = new ConcurrentHashMap<>();
         map.put("item.minecraft.mushroom_stew", () -> "item.chinesefestivals.laba_congee");
         map.put("item.minecraft.rabbit_stew", () -> "item.chinesefestivals.sweet_dumplings");
         return map;

@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.PushReaction;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public class MoonFestival extends LunarFestival {
@@ -25,7 +26,7 @@ public class MoonFestival extends LunarFestival {
 
     @Override
     public Map<Item, Supplier<Item>> getItemReplace() {
-        Map<Item, Supplier<Item>> map = super.getItemReplace();
+        Map<Item, Supplier<Item>> map = new ConcurrentHashMap<>();
         map.put(Items.CAKE, MOONCAKES_ITEM);
         map.put(Items.PUMPKIN_PIE, MOONCAKE_ITEM);
         return map;
@@ -33,14 +34,14 @@ public class MoonFestival extends LunarFestival {
 
     @Override
     public Map<Block, Supplier<Block>> getBlockReplace() {
-        Map<Block, Supplier<Block>> map = super.getBlockReplace();
+        Map<Block, Supplier<Block>> map = new ConcurrentHashMap<>();
         map.put(Blocks.CAKE, MOONCAKES);
         return map;
     }
 
     @Override
     public Map<String, Supplier<String>> getTranslationReplace() {
-        Map<String, Supplier<String>> map = super.getTranslationReplace();
+        Map<String, Supplier<String>> map = new ConcurrentHashMap<>();
         map.put("block.minecraft.cake", () -> "block.chinesefestivals.mooncakes");
         map.put("item.minecraft.pumpkin_pie", () -> "item.chinesefestivals.mooncake");
         return map;

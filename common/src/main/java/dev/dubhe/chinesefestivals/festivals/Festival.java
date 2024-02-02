@@ -2,7 +2,10 @@ package dev.dubhe.chinesefestivals.festivals;
 
 import dev.dubhe.chinesefestivals.ChineseFestivals;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.function.Supplier;
 
 public class Festival implements IFestival {
     protected final String id;
@@ -36,11 +39,12 @@ public class Festival implements IFestival {
 
     @Override
     public void refresh() {
-        LocalDate now = LocalDate.now();
+        LocalDateTime ldt = LocalDateTime.now();
+        ZonedDateTime now = ldt.atZone(ZoneId.of("GMT+8"));
         refresh(now::getMonthValue, now::getDayOfMonth);
     }
 
-    protected void refresh(GetTime month, GetTime day) {
+    protected void refresh(Supplier<Integer> month, Supplier<Integer> day) {
         int currentMonth = month.get();
         int currentDay = day.get();
         boolean flag;
@@ -59,10 +63,5 @@ public class Festival implements IFestival {
             return (month == startMonth && day >= startDay) ||
                     (month == endMonth && day <= endDay);
         }
-    }
-
-    @FunctionalInterface
-    public interface GetTime {
-        int get();
     }
 }

@@ -5,6 +5,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public class DoubleNinthFestival extends LunarFestival {
@@ -16,14 +17,14 @@ public class DoubleNinthFestival extends LunarFestival {
 
     @Override
     public Map<Item, Supplier<Item>> getItemReplace() {
-        Map<Item, Supplier<Item>> map = super.getItemReplace();
+        Map<Item, Supplier<Item>> map = new ConcurrentHashMap<>();
         map.put(Items.COOKIE, FLOWER_CAKE);
         return map;
     }
 
     @Override
     public Map<String, Supplier<String>> getTranslationReplace() {
-        Map<String, Supplier<String>> map = super.getTranslationReplace();
+        Map<String, Supplier<String>> map = new ConcurrentHashMap<>();
         map.put("item.minecraft.cookie", () -> "item.chinesefestivals.flower_cake");
         return map;
     }

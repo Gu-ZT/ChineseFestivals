@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "dark=false": {
+      "model": "chinesefestivals:block/plate"
+    },
+    "dark=true": {
+      "model": "chinesefestivals:block/plate_dark"
+    }
+  }
+}
