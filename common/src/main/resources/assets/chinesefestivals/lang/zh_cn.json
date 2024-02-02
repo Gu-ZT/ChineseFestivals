@@ -12,5 +12,6 @@
   "entity.chinesefestivals.plate": "盘子",
   "entity.chinesefestivals.plate_dark": "暗色盘子",
   "block.chinesefestivals.lantern": "灯笼",
-  "block.chinesefestivals.tall_lantern": "高灯笼"
+  "block.chinesefestivals.tall_lantern": "高灯笼",
+  "item.firework_star.shape.dragon": "龙形"
 }

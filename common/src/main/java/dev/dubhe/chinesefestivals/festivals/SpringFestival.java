@@ -112,6 +112,7 @@ public class SpringFestival extends LunarFestival {
         Map<String, Supplier<String>> map = new ConcurrentHashMap<>();
         map.put("item.minecraft.rabbit_stew", () -> "item.chinesefestivals.dumplings");
         map.put("item.minecraft.beetroot_soup", () -> "item.chinesefestivals.sweet_dumplings");
+        map.put("item.minecraft.firework_star.shape.creeper", () -> "item.firework_star.shape.dragon");
         return map;
     }
 
