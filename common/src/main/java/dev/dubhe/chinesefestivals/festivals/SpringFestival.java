@@ -27,7 +27,7 @@ public class SpringFestival extends LunarFestival {
     private static final ModelResourceLocation TALL_LANTERN = IFestival.registerBlockModel(new BlockModelData("tall_lantern_hanging"));
     private static final PaintingVariant COUPLET_LEFT = IFestival.registerPainting("couplet_left", 16, 32);
     private static final PaintingVariant COUPLET_RIGHT = IFestival.registerPainting("couplet_right", 16, 32);
-    private static final PaintingVariant COUPLET_TOP = IFestival.registerPainting("couplet_top", 16, 32);
+    private static final PaintingVariant COUPLET_TOP = IFestival.registerPainting("couplet_top", 32, 16);
     private static final PaintingVariant COUPLET_FU = IFestival.registerPainting("couplet_fu", 32, 32);
 
 
