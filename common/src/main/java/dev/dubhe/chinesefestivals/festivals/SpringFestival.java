@@ -103,7 +103,7 @@ public class SpringFestival extends LunarFestival {
     public Map<Item, Supplier<Item>> getItemReplace() {
         Map<Item, Supplier<Item>> map = new ConcurrentHashMap<>();
         map.put(Items.RABBIT_STEW, DongZhiFestival.DUMPLINGS);
-        map.put(Items.MUSHROOM_STEW, LabaFestival.SWEET_DUMPLINGS);
+        map.put(Items.BEETROOT_SOUP, LabaFestival.SWEET_DUMPLINGS);
         return map;
     }
 
@@ -111,7 +111,7 @@ public class SpringFestival extends LunarFestival {
     public Map<String, Supplier<String>> getTranslationReplace() {
         Map<String, Supplier<String>> map = new ConcurrentHashMap<>();
         map.put("item.minecraft.rabbit_stew", () -> "item.chinesefestivals.dumplings");
-        map.put("item.minecraft.mushroom_stew", () -> "item.chinesefestivals.sweet_dumplings");
+        map.put("item.minecraft.beetroot_soup", () -> "item.chinesefestivals.sweet_dumplings");
         return map;
     }
 
