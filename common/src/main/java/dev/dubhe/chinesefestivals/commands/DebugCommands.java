@@ -43,7 +43,7 @@ public class DebugCommands {
         ArgumentBuilder<CommandSourceStack, LiteralArgumentBuilder<CommandSourceStack>> node = Commands.literal("set").requires(commandSourceStack -> commandSourceStack.hasPermission(3));
         node.then(Commands.literal("none").executes(context -> {
             ChineseFestivals.debugFestival = null;
-            context.getSource().sendSuccess(() -> SUCCESS_MSG.apply(ChineseFestivals.debugFestival.getId()), false);
+            context.getSource().sendSuccess(() -> SUCCESS_MSG.apply("none"), false);
             return 0;
         }));
         for (IFestival festival : Festivals.FESTIVALS) {
