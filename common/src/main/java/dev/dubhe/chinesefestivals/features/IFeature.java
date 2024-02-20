@@ -1,8 +1,10 @@
-package dev.dubhe.chinesefestivals.festivals;
+package dev.dubhe.chinesefestivals.features;
 
 import dev.dubhe.chinesefestivals.ChineseFestivals;
 import dev.dubhe.chinesefestivals.data.BlockModelData;
-import dev.dubhe.chinesefestivals.features.IFeature;
+import dev.dubhe.chinesefestivals.festivals.BlockFactory;
+import dev.dubhe.chinesefestivals.festivals.BlockItemFactory;
+import dev.dubhe.chinesefestivals.festivals.ItemFactory;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -16,27 +18,18 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
-public interface IFestival {
+public interface IFeature {
     Map<ResourceLocation, Supplier<Block>> BLOCK_REGISTER = new HashMap<>();
     Map<ResourceLocation, Supplier<Item>> ITEM_REGISTER = new HashMap<>();
     Map<ResourceLocation, Supplier<PaintingVariant>> PAINTING_REGISTER = new HashMap<>();
     Collection<BlockModelData> BLOCK_MODELS = new HashSet<>();
-
     String getId();
 
     boolean isNow();
 
-    void refresh();
-
     default Map<Item, Supplier<Item>> getItemReplace() {
-        return Collections.emptyMap();
-    }
-
-    @Deprecated
-    default Map<Block, Supplier<Block>> getBlockReplace() {
         return Collections.emptyMap();
     }
 
@@ -47,6 +40,7 @@ public interface IFestival {
     default Map<String, Supplier<String>> getTranslationReplace() {
         return Collections.emptyMap();
     }
+
     default String getBlockTranslateReplace(Block block) {
         return null;
     }
@@ -63,48 +57,25 @@ public interface IFestival {
         return null;
     }
 
-    default double[][] getFireworkParticle() { return null; }
+    default double[][] getFireworkParticle() {
+        return null;
+    }
 
     static Supplier<Block> createBlock(String id, BlockBehaviour.Properties properties, BlockFactory.BlockCreator<Block> creator) {
         BlockFactory<Block> blockFactory = new BlockFactory<>(properties, creator);
-        IFeature.BLOCK_REGISTER.put(ChineseFestivals.of(id), blockFactory);
+        BLOCK_REGISTER.put(ChineseFestivals.of(id), blockFactory);
         return blockFactory;
     }
 
     static Supplier<Item> createItem(String id, Item.Properties properties, ItemFactory.ItemCreator<Item> creator) {
         ItemFactory<Item> itemFactory = new ItemFactory<>(properties, creator);
-        IFeature.ITEM_REGISTER.put(ChineseFestivals.of(id), itemFactory);
+        ITEM_REGISTER.put(ChineseFestivals.of(id), itemFactory);
         return itemFactory;
     }
 
     static Supplier<Item> createBlockItem(String id, Supplier<Block> block, Item.Properties properties, BlockItemFactory.ItemCreator<Item> creator) {
         BlockItemFactory<Block, Item> itemFactory = new BlockItemFactory<>(block, properties, creator);
-        IFeature.ITEM_REGISTER.put(ChineseFestivals.of(id), itemFactory);
+        ITEM_REGISTER.put(ChineseFestivals.of(id), itemFactory);
         return itemFactory;
     }
-
-    static ModelResourceLocation registerBlockModel(BlockModelData model) {
-        if (IFeature.BLOCK_MODELS.stream().parallel().noneMatch(it -> it.resourceLocation.equals(model.resourceLocation))) {
-            IFeature.BLOCK_MODELS.add(model);
-        }
-        return model.model();
-    }
-
-    static PaintingVariant registerPainting(String id, int x, int y) {
-        PaintingVariant variant = new PaintingVariant(x, y);
-        IFeature.PAINTING_REGISTER.put(ChineseFestivals.of(id), () -> variant);
-        return variant;
-    }
-
-    static <T> T execute(Function<IFestival, T> supplier) {
-        for (IFestival festival : Festivals.FESTIVALS) {
-            if (festival.isNow()) {
-                T data = supplier.apply(festival);
-                if (data == null) continue;
-                return data;
-            }
-        }
-        return null;
-    }
-
 }

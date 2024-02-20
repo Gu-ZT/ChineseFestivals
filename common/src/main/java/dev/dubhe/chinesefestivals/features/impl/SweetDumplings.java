@@ -1,25 +1,32 @@
-package dev.dubhe.chinesefestivals.festivals;
+package dev.dubhe.chinesefestivals.features.impl;
 
+import dev.dubhe.chinesefestivals.features.Feature;
+import dev.dubhe.chinesefestivals.festivals.Festivals;
+import dev.dubhe.chinesefestivals.festivals.IFestival;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
-public class LabaFestival extends LunarFestival {
-    public static final Supplier<Item> LABA_CONGEE = IFestival.createItem("laba_congee", new Item.Properties().food(Foods.MUSHROOM_STEW), Item::new);
+public class SweetDumplings extends Feature {
     public static final Supplier<Item> SWEET_DUMPLINGS = IFestival.createItem("sweet_dumplings", new Item.Properties().food(Foods.RABBIT_STEW), Item::new);
 
-    public LabaFestival() {
-        super("laba", 12, 8);
+    public SweetDumplings(String id, IFestival... enableTimes) {
+        super(id, Festivals.LABA_FESTIVAL, Festivals.CHINESE_SPRING_FESTIVAL, Festivals.LANTERN_FESTIVAL);
+        if (enableTimes.length > 0) {
+            super.enableTimes.clear();
+            super.enableTimes.addAll(List.of(enableTimes));
+        }
     }
+
 
     @Override
     public Map<Item, Supplier<Item>> getItemReplace() {
         Map<Item, Supplier<Item>> map = new ConcurrentHashMap<>();
-        map.put(Items.MUSHROOM_STEW, LABA_CONGEE);
         map.put(Items.BEETROOT_SOUP, SWEET_DUMPLINGS);
         return map;
     }
@@ -27,7 +34,6 @@ public class LabaFestival extends LunarFestival {
     @Override
     public Map<String, Supplier<String>> getTranslationReplace() {
         Map<String, Supplier<String>> map = new ConcurrentHashMap<>();
-        map.put("item.minecraft.mushroom_stew", () -> "item.chinesefestivals.laba_congee");
         map.put("item.minecraft.beetroot_soup", () -> "item.chinesefestivals.sweet_dumplings");
         return map;
     }

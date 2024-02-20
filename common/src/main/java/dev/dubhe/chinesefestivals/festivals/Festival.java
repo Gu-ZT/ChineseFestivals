@@ -32,6 +32,22 @@ public class Festival implements IFestival {
         return this.id;
     }
 
+    public int getStartMonth() {
+        return startMonth;
+    }
+
+    public int getEndMonth() {
+        return endMonth;
+    }
+
+    public int getStartDay() {
+        return startDay;
+    }
+
+    public int getEndDay() {
+        return endDay;
+    }
+
     @Override
     public boolean isNow() {
         return this.flag;

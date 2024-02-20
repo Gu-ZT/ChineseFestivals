@@ -2,7 +2,7 @@ package dev.dubhe.chinesefestivals.mixins;
 
 import com.google.common.collect.ImmutableMap;
 import dev.dubhe.chinesefestivals.data.BlockModelData;
-import dev.dubhe.chinesefestivals.festivals.IFestival;
+import dev.dubhe.chinesefestivals.features.IFeature;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -25,7 +25,7 @@ public class ModelBakeryMixin {
         List<Map.Entry<ResourceLocation, StateDefinition<Block, BlockState>>> entries = new ArrayList<>();
         entries.add((Map.Entry) Map.entry(k1, v1));
         entries.add((Map.Entry) Map.entry(k2, v2));
-        for (BlockModelData model : IFestival.BLOCK_MODELS) {
+        for (BlockModelData model : IFeature.BLOCK_MODELS) {
             StateDefinition.Builder<Block, BlockState> builder = new StateDefinition.Builder<>(Blocks.AIR);
             model.properties.forEach(it -> builder.add(it.genProperty()));
             StateDefinition<Block, BlockState> definition = builder.create(Block::defaultBlockState, BlockState::new);
