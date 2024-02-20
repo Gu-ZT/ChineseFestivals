@@ -2,9 +2,7 @@ package dev.dubhe.chinesefestivals.features;
 
 import dev.dubhe.chinesefestivals.ChineseFestivals;
 import dev.dubhe.chinesefestivals.data.BlockModelData;
-import dev.dubhe.chinesefestivals.festivals.BlockFactory;
-import dev.dubhe.chinesefestivals.festivals.BlockItemFactory;
-import dev.dubhe.chinesefestivals.festivals.ItemFactory;
+import dev.dubhe.chinesefestivals.festivals.*;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -18,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public interface IFeature {
@@ -25,6 +24,7 @@ public interface IFeature {
     Map<ResourceLocation, Supplier<Item>> ITEM_REGISTER = new HashMap<>();
     Map<ResourceLocation, Supplier<PaintingVariant>> PAINTING_REGISTER = new HashMap<>();
     Collection<BlockModelData> BLOCK_MODELS = new HashSet<>();
+
     String getId();
 
     boolean isNow();
@@ -77,5 +77,29 @@ public interface IFeature {
         BlockItemFactory<Block, Item> itemFactory = new BlockItemFactory<>(block, properties, creator);
         ITEM_REGISTER.put(ChineseFestivals.of(id), itemFactory);
         return itemFactory;
+    }
+
+    static ModelResourceLocation registerBlockModel(BlockModelData model) {
+        if (IFeature.BLOCK_MODELS.stream().parallel().noneMatch(it -> it.resourceLocation.equals(model.resourceLocation))) {
+            IFeature.BLOCK_MODELS.add(model);
+        }
+        return model.model();
+    }
+
+    static PaintingVariant registerPainting(String id, int x, int y) {
+        PaintingVariant variant = new PaintingVariant(x, y);
+        IFeature.PAINTING_REGISTER.put(ChineseFestivals.of(id), () -> variant);
+        return variant;
+    }
+
+    static <T> T execute(Function<IFeature, T> supplier) {
+        for (Supplier<IFeature> feature : Features.FEATURES) {
+            if (feature.get().isNow()) {
+                T data = supplier.apply(feature.get());
+                if (data == null) continue;
+                return data;
+            }
+        }
+        return null;
     }
 }

@@ -21,6 +21,11 @@ public class Feature implements IFeature {
 
     @Override
     public boolean isNow() {
-        return this.enableTimes.stream().anyMatch(IFestival::isNow);
+        for (IFestival enableTime : this.enableTimes) {
+            if (enableTime.isNow()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -1,34 +1,7 @@
 {
   "variants": {
-    "facing=east,lit=false": {
-      "model": "minecraft:block/campfire_off",
-      "y": 270
-    },
-    "facing=east,lit=true": {
-      "model": "chinesefestivals:block/hotpot_s",
-      "y": 270
-    },
-    "facing=north,lit=false": {
-      "model": "minecraft:block/campfire_off",
-      "y": 180
-    },
-    "facing=north,lit=true": {
-      "model": "chinesefestivals:block/hotpot_s",
-      "y": 180
-    },
-    "facing=south,lit=false": {
-      "model": "minecraft:block/campfire_off"
-    },
-    "facing=south,lit=true": {
+    "": {
       "model": "chinesefestivals:block/hotpot_s"
-    },
-    "facing=west,lit=false": {
-      "model": "minecraft:block/campfire_off",
-      "y": 90
-    },
-    "facing=west,lit=true": {
-      "model": "chinesefestivals:block/hotpot_s",
-      "y": 90
     }
   }
 }

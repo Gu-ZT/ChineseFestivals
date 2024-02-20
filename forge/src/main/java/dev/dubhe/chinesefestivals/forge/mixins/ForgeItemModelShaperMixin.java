@@ -1,8 +1,7 @@
 package dev.dubhe.chinesefestivals.forge.mixins;
 
-import dev.dubhe.chinesefestivals.ChineseFestivals;
-import dev.dubhe.chinesefestivals.festivals.Festivals;
-import dev.dubhe.chinesefestivals.festivals.IFestival;
+import dev.dubhe.chinesefestivals.features.Features;
+import dev.dubhe.chinesefestivals.features.IFeature;
 import net.minecraft.client.renderer.ItemModelShaper;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelManager;
@@ -32,9 +31,9 @@ public abstract class ForgeItemModelShaperMixin extends ItemModelShaper {
 
     @Inject(method = "getItemModel", at = @At("HEAD"), cancellable = true)
     private void getItemModel(Item item, CallbackInfoReturnable<BakedModel> cir) {
-        for (IFestival festival : Festivals.FESTIVALS) {
-            if (festival.isNow()) {
-                Supplier<Item> item1 = festival.getItemReplace().getOrDefault(item, null);
+        for (Supplier<IFeature> feature : Features.FEATURES) {
+            if (feature.get().isNow()) {
+                Supplier<Item> item1 = feature.get().getItemReplace().getOrDefault(item, null);
                 if (item1 != null) {
                     cir.setReturnValue(this.models.get(ForgeRegistries.ITEMS.getDelegateOrThrow(item1.get())));
                     return;

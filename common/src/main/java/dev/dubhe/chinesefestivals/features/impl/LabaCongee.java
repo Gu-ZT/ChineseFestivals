@@ -13,11 +13,11 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
-public class Dumplings extends Feature {
-    public static final Supplier<Item> DUMPLINGS = IFeature.createItem("dumplings", new Item.Properties().food(Foods.RABBIT_STEW), Item::new);
+public class LabaCongee extends Feature {
+    public static final Supplier<Item> LABA_CONGEE = IFeature.createItem("laba_congee", new Item.Properties().food(Foods.MUSHROOM_STEW), Item::new);
 
-    public Dumplings(String id, IFestival... enableTimes) {
-        super(id, Festivals.DONG_ZHI_FESTIVAL, Festivals.CHINESE_SPRING_FESTIVAL);
+    public LabaCongee(String id, IFestival... enableTimes) {
+        super(id, Festivals.LABA_FESTIVAL);
         if (enableTimes.length > 0) {
             super.enableTimes.clear();
             super.enableTimes.addAll(List.of(enableTimes));
@@ -27,14 +27,14 @@ public class Dumplings extends Feature {
     @Override
     public Map<Item, Supplier<Item>> getItemReplace() {
         Map<Item, Supplier<Item>> map = new ConcurrentHashMap<>();
-        map.put(Items.RABBIT_STEW, DUMPLINGS);
+        map.put(Items.MUSHROOM_STEW, LABA_CONGEE);
         return map;
     }
 
     @Override
     public Map<String, Supplier<String>> getTranslationReplace() {
         Map<String, Supplier<String>> map = new ConcurrentHashMap<>();
-        map.put("item.minecraft.rabbit_stew", () -> "item.chinesefestivals.dumplings");
+        map.put("item.minecraft.mushroom_stew", () -> "item.chinesefestivals.laba_congee");
         return map;
     }
 }

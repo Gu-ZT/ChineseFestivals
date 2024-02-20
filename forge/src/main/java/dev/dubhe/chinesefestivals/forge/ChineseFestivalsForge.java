@@ -11,10 +11,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoader;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 
@@ -26,8 +30,10 @@ public class ChineseFestivalsForge {
     @OnlyIn(Dist.CLIENT)
     public ChineseFestivalsForge() {
         // Submit our event bus to let architectury register our content on the right time
+        ChineseFestivals.ChineseFestivalsContext context = new ChineseFestivals.ChineseFestivalsContext();
+        context.configPath = FMLPaths.CONFIGDIR.get();
         EventBuses.registerModEventBus(ChineseFestivals.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
-        ChineseFestivals.init();
+        ChineseFestivals.init(context);
         MinecraftForge.EVENT_BUS.register(this);
     }
 

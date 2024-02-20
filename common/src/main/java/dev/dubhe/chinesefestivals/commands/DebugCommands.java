@@ -7,6 +7,7 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import dev.dubhe.chinesefestivals.ChineseFestivals;
+import dev.dubhe.chinesefestivals.features.Features;
 import dev.dubhe.chinesefestivals.festivals.Festivals;
 import dev.dubhe.chinesefestivals.festivals.IFestival;
 import net.minecraft.commands.CommandSourceStack;
@@ -31,7 +32,18 @@ public class DebugCommands {
                     }
                     return 0;
                 })
-                .then(DebugCommands.genCommands()).then(Commands.literal("test").then(Commands.argument("val", FloatArgumentType.floatArg()).executes((context) -> {
+                .then(DebugCommands.genCommands())
+                .then(Commands.literal("reload").executes(context -> {
+                            try {
+                                Features.refresh();
+                                context.getSource().sendSuccess(() -> Component.literal("Reloaded!"), false);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            return Command.SINGLE_SUCCESS;
+                        })
+                )
+                .then(Commands.literal("test").then(Commands.argument("val", FloatArgumentType.floatArg()).executes((context) -> {
                     test = FloatArgumentType.getFloat(context, "val");
                     context.getSource().sendSuccess(() -> Component.literal("success"), false);
                     return Command.SINGLE_SUCCESS;

@@ -1,7 +1,7 @@
 package dev.dubhe.chinesefestivals.mixins;
 
-import dev.dubhe.chinesefestivals.festivals.Festivals;
-import dev.dubhe.chinesefestivals.festivals.IFestival;
+import dev.dubhe.chinesefestivals.features.Features;
+import dev.dubhe.chinesefestivals.features.IFeature;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
@@ -14,6 +14,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.function.Supplier;
+
 @Mixin(ItemFrameRenderer.class)
 public class ItemFrameRenderMixin {
     @Inject(
@@ -22,9 +24,9 @@ public class ItemFrameRenderMixin {
             cancellable = true
     )
     private void getRenderModel(ItemFrame itemFrame, ItemStack itemStack, CallbackInfoReturnable<ModelResourceLocation> cir) {
-        for (IFestival festival : Festivals.FESTIVALS) {
-            if (festival.isNow()) {
-                ModelResourceLocation replace = festival.getItemFrameReplace(itemFrame, itemStack);
+        for (Supplier<IFeature> feature : Features.FEATURES) {
+            if (feature.get().isNow()) {
+                ModelResourceLocation replace = feature.get().getItemFrameReplace(itemFrame, itemStack);
                 if (replace != null) cir.setReturnValue(replace);
             }
         }

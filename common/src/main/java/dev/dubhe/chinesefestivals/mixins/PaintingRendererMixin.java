@@ -2,6 +2,8 @@ package dev.dubhe.chinesefestivals.mixins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import dev.dubhe.chinesefestivals.features.Features;
+import dev.dubhe.chinesefestivals.features.IFeature;
 import dev.dubhe.chinesefestivals.festivals.Festivals;
 import dev.dubhe.chinesefestivals.festivals.IFestival;
 import dev.dubhe.chinesefestivals.renderer.CustomPaintingRenderer;
@@ -25,13 +27,15 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.function.Supplier;
+
 @Mixin(PaintingRenderer.class)
 public class PaintingRendererMixin {
     @Redirect(method = "render(Lnet/minecraft/world/entity/decoration/Painting;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/decoration/Painting;getVariant()Lnet/minecraft/core/Holder;"))
     private Holder<PaintingVariant> modify(Painting painting) {
-        for (IFestival festival : Festivals.FESTIVALS) {
-            if (festival.isNow()) {
-                PaintingVariant variant = festival.getPaintingReplace(painting);
+        for (Supplier<IFeature> feature : Features.FEATURES) {
+            if (feature.get().isNow()) {
+                PaintingVariant variant = feature.get().getPaintingReplace(painting);
                 if (variant == null) continue;
                 return Holder.direct(variant);
             }
@@ -49,7 +53,7 @@ public class PaintingRendererMixin {
 
     @Inject(method = "renderPainting", at = @At("HEAD"), cancellable = true)
     private void rewriteRenderer(PoseStack poseStack, VertexConsumer vertexConsumer, Painting painting, int i, int j, TextureAtlasSprite textureAtlasSprite, TextureAtlasSprite textureAtlasSprite2, CallbackInfo ci) {
-        PaintingVariant variant = IFestival.execute(it -> it.getPaintingReplace(painting));
+        PaintingVariant variant = IFeature.execute(it -> it.getPaintingReplace(painting));
         if (variant == null) return;
         CustomPaintingRenderer.render(poseStack, vertexConsumer, painting, i, j, textureAtlasSprite, this::vertex);
         ci.cancel();

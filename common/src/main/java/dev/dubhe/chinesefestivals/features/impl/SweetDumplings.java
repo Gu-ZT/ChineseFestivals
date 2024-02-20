@@ -1,6 +1,7 @@
 package dev.dubhe.chinesefestivals.features.impl;
 
 import dev.dubhe.chinesefestivals.features.Feature;
+import dev.dubhe.chinesefestivals.features.IFeature;
 import dev.dubhe.chinesefestivals.festivals.Festivals;
 import dev.dubhe.chinesefestivals.festivals.IFestival;
 import net.minecraft.world.food.Foods;
@@ -13,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public class SweetDumplings extends Feature {
-    public static final Supplier<Item> SWEET_DUMPLINGS = IFestival.createItem("sweet_dumplings", new Item.Properties().food(Foods.RABBIT_STEW), Item::new);
+    public static final Supplier<Item> SWEET_DUMPLINGS = IFeature.createItem("sweet_dumplings", new Item.Properties().food(Foods.RABBIT_STEW), Item::new);
 
     public SweetDumplings(String id, IFestival... enableTimes) {
         super(id, Festivals.LABA_FESTIVAL, Festivals.CHINESE_SPRING_FESTIVAL, Festivals.LANTERN_FESTIVAL);

@@ -5,6 +5,7 @@ import dev.dubhe.chinesefestivals.festivals.*;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FeatureParser implements JsonSerializer<IFeature>, JsonDeserializer<IFeature> {
@@ -13,7 +14,7 @@ public class FeatureParser implements JsonSerializer<IFeature>, JsonDeserializer
         if (!jsonElement.isJsonObject()) throw new JsonParseException("JSON format does not meet the requirements.");
         JsonObject featureJsonObject = jsonElement.getAsJsonObject();
         JsonElement tempJsonElement = featureJsonObject.get("id");
-        if (!(tempJsonElement.isJsonPrimitive() && jsonElement.getAsJsonPrimitive().isString()))
+        if (!(tempJsonElement.isJsonPrimitive() && tempJsonElement.getAsJsonPrimitive().isString()))
             throw new JsonParseException("JSON format does not meet the requirements.");
         String id = tempJsonElement.getAsString();
         tempJsonElement = featureJsonObject.get("enable_times");
@@ -37,7 +38,7 @@ public class FeatureParser implements JsonSerializer<IFeature>, JsonDeserializer
         JsonArray enableTimes = new JsonArray();
         if (feature instanceof Feature feature1) {
             for (IFestival time : feature1.enableTimes) {
-                enableTimes.add(Features.GSON.toJsonTree(time, IFeature.class));
+                enableTimes.add(Features.GSON.toJsonTree(time, IFestival.class));
             }
         }
         root.add("enable_times", enableTimes);
@@ -56,10 +57,12 @@ public class FeatureParser implements JsonSerializer<IFeature>, JsonDeserializer
 
         public IFestival deserialize(String str) throws JsonParseException {
             str = str.replaceAll(" ", "");
+            String saveStr = str;
             // "spring"
             for (IFestival festival : Festivals.FESTIVALS) {
                 if (festival.getId().equals(str)) return festival;
             }
+            str = saveStr;
             // "冬至"
             for (SolarTermFestival.SolarTerm jieQi : SolarTermFestival.SolarTerm.values()) {
                 if (jieQi.name.equals(str)) {
@@ -68,6 +71,7 @@ public class FeatureParser implements JsonSerializer<IFeature>, JsonDeserializer
                     return festival;
                 }
             }
+            str = saveStr;
             // "12.23"
             String regular = "^\\d+.\\d+$";
             if (str.matches(regular)) {
@@ -78,18 +82,19 @@ public class FeatureParser implements JsonSerializer<IFeature>, JsonDeserializer
                 Festivals.FESTIVALS.add(festival);
                 return festival;
             }
+            str = saveStr;
             // "腊月廿三"
-            regular = "^\\D月[初二廿三]\\D$";
+            regular = "^\\D月[初十二廿三]\\D$";
             if (str.matches(regular)) {
                 int month = 0, day = 0;
                 for (LunarMonth lunarMonth : LunarMonth.values()) {
-                    if (lunarMonth.name.equals(str)) {
+                    if (lunarMonth.name.equals(str.substring(0, 2))) {
                         month = lunarMonth.month;
                         break;
                     }
                 }
                 for (LunarDay lunarDay : LunarDay.values()) {
-                    if (lunarDay.name.equals(str)) {
+                    if (lunarDay.name.equals(str.substring(2, 4))) {
                         day = lunarDay.day;
                         break;
                     }
@@ -99,6 +104,7 @@ public class FeatureParser implements JsonSerializer<IFeature>, JsonDeserializer
                 Festivals.FESTIVALS.add(festival);
                 return festival;
             }
+            str = saveStr;
             // "[12.23, 1.8]"
             regular = "^\\[\\d+.\\d+,\\d+.\\d+]$";
             if (str.matches(regular)) {
@@ -111,24 +117,25 @@ public class FeatureParser implements JsonSerializer<IFeature>, JsonDeserializer
                 Festivals.FESTIVALS.add(festival);
                 return festival;
             }
+            str = saveStr;
             // "[腊月廿三, 正月初八]"
-            regular = "^\\[\\D月[初二廿三]\\D,\\D月[初二廿三]\\D]$";
+            regular = "^\\[\\D月[初十二廿三]\\D,\\D月[初十二廿三]\\D]$";
             if (str.matches(regular)) {
                 String[] split = str.substring(1, str.length() - 1).split(",");
                 int fromMonth = 0, fromDay = 0, toMonth = 0, toDay = 0;
                 for (LunarMonth lunarMonth : LunarMonth.values()) {
-                    if (lunarMonth.name.equals(split[0])) {
+                    if (lunarMonth.name.equals(split[0].substring(0, 2))) {
                         fromMonth = lunarMonth.month;
                     }
-                    if (lunarMonth.name.equals(split[1])) {
+                    if (lunarMonth.name.equals(split[1].substring(0, 2))) {
                         toMonth = lunarMonth.month;
                     }
                 }
                 for (LunarDay lunarDay : LunarDay.values()) {
-                    if (lunarDay.name.equals(split[0])) {
+                    if (lunarDay.name.equals(split[0].substring(2, 4))) {
                         fromDay = lunarDay.day;
                     }
-                    if (lunarDay.name.equals(split[1])) {
+                    if (lunarDay.name.equals(split[1].substring(2, 4))) {
                         toDay = lunarDay.day;
                     }
                 }
@@ -222,6 +229,7 @@ public class FeatureParser implements JsonSerializer<IFeature>, JsonDeserializer
             } else if (Festivals.FESTIVALS.contains(iFestival)) {
                 return new JsonPrimitive(iFestival.getId());
             } else {
+                System.out.println(Festivals.FESTIVALS.contains(iFestival));
                 throw new JsonParseException("This festival does not exist.");
             }
         }

@@ -1,5 +1,6 @@
 package dev.dubhe.chinesefestivals.mixins;
 
+import dev.dubhe.chinesefestivals.features.IFeature;
 import dev.dubhe.chinesefestivals.festivals.IFestival;
 import dev.dubhe.chinesefestivals.util.ParticleUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -21,7 +22,7 @@ public abstract class FireworkParticles$StarterMixin extends Particle {
 
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/particle/FireworkParticles$Starter;createParticleShape(D[[D[I[IZZZ)V", ordinal = 1))
     public void modifyParticle(FireworkParticles.Starter instance, double d9, double[][] d10, int[] d11, int[] d8, boolean d6, boolean d7, boolean j) {
-        double[][] particles = IFestival.execute(IFestival::getFireworkParticle);
+        double[][] particles = IFeature.execute(IFeature::getFireworkParticle);
         if (particles == null) {
             ((FireworkParticles$StarterAccessor) instance).invokeCreateParticleShape(d9, d10, d11, d8, d6, d7, j);
         } else {
