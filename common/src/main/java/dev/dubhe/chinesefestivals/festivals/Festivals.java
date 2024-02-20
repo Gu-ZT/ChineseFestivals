@@ -8,10 +8,8 @@ public class Festivals {
     public static boolean hasChanged = false;
     // 春节
     public static final IFestival CHINESE_SPRING_FESTIVAL = new SpringFestival();
-    // 元旦节
-    public static final IFestival NEW_YEAR = new Festival("new_year", 1, 1);
     // 元宵节
-    public static final IFestival LANTERN_FESTIVAL = new LunarFestival("lantern", 1, 15);
+    public static final IFestival LANTERN_FESTIVAL = new LanternFestival();
     // 端午节
     public static final IFestival DRAGON_BOAT_FESTIVAL = new LunarFestival("dragon_boat", 5, 5);
     // 七夕节
@@ -27,7 +25,6 @@ public class Festivals {
 
     public static void init() {
         FESTIVALS.add(CHINESE_SPRING_FESTIVAL);
-        FESTIVALS.add(NEW_YEAR);
         FESTIVALS.add(LANTERN_FESTIVAL);
         FESTIVALS.add(DRAGON_BOAT_FESTIVAL);
         FESTIVALS.add(QIXI_FESTIVAL);

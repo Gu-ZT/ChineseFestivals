@@ -13,8 +13,13 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 
+import java.util.function.Function;
+import java.util.function.Supplier;
+
 public class DebugCommands {
     public static float test = 0;
+    public static Function<String, Component> SUCCESS_MSG = (id) ->
+            Component.translatable("command.debug.message", Component.translatable("festival." + id + ".name"));
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         LiteralArgumentBuilder<CommandSourceStack> command = Commands.literal("festivals")
@@ -38,7 +43,7 @@ public class DebugCommands {
         ArgumentBuilder<CommandSourceStack, LiteralArgumentBuilder<CommandSourceStack>> node = Commands.literal("set").requires(commandSourceStack -> commandSourceStack.hasPermission(3));
         node.then(Commands.literal("none").executes(context -> {
             ChineseFestivals.debugFestival = null;
-            context.getSource().sendSuccess(() -> Component.literal("Festivals have been set as " + ChineseFestivals.debugFestival.getId()), false);
+            context.getSource().sendSuccess(() -> SUCCESS_MSG.apply(ChineseFestivals.debugFestival.getId()), false);
             return 0;
         }));
         for (IFestival festival : Festivals.FESTIVALS) {
@@ -47,7 +52,7 @@ public class DebugCommands {
                 ChineseFestivals.debugFestival = festival;
                 festival.refresh();
                 if (oldFestival != null) oldFestival.refresh();
-                context.getSource().sendSuccess(() -> Component.literal("Festivals have been set as " + ChineseFestivals.debugFestival.getId()), true);
+                context.getSource().sendSuccess(() -> SUCCESS_MSG.apply(ChineseFestivals.debugFestival.getId()), true);
                 return 0;
             }));
         }

@@ -23,8 +23,8 @@ import java.util.function.Supplier;
 public class SpringFestival extends LunarFestival {
     private static final ModelResourceLocation DARK_PLATE = IFestival.registerBlockModel(new BlockModelData("plate").property("dark", "true", BooleanProperty::create));
     private static final ModelResourceLocation PLATE = IFestival.registerBlockModel(new BlockModelData("plate").property("dark", "false", BooleanProperty::create));
-    private static final ModelResourceLocation LANTERN = IFestival.registerBlockModel(new BlockModelData("lantern_hanging"));
-    private static final ModelResourceLocation TALL_LANTERN = IFestival.registerBlockModel(new BlockModelData("tall_lantern_hanging"));
+    public static final ModelResourceLocation LANTERN = IFestival.registerBlockModel(new BlockModelData("lantern_hanging"));
+    public static final ModelResourceLocation TALL_LANTERN = IFestival.registerBlockModel(new BlockModelData("tall_lantern_hanging"));
     private static final PaintingVariant COUPLET_LEFT = IFestival.registerPainting("couplet_left", 16, 32);
     private static final PaintingVariant COUPLET_RIGHT = IFestival.registerPainting("couplet_right", 16, 32);
     private static final PaintingVariant COUPLET_TOP = IFestival.registerPainting("couplet_top", 32, 16);
