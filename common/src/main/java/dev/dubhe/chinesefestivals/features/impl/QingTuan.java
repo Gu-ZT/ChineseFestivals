@@ -7,35 +7,35 @@ import dev.dubhe.chinesefestivals.festivals.IFestival;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
-public class SweetDumplings extends Feature {
-    public static final Supplier<Item> SWEET_DUMPLINGS = IFeature.createItem("sweet_dumplings", new Item.Properties().food(Foods.RABBIT_STEW), Item::new);
+public class QingTuan extends Feature {
+    public static final Supplier<Item> QING_TUAN = IFeature.createItem("qing_tuan", new Item.Properties().food(Foods.BAKED_POTATO), Item::new);
 
-    public SweetDumplings(String id, IFestival... enableTimes) {
-        super(id, Festivals.LABA_FESTIVAL, Festivals.CHINESE_SPRING_FESTIVAL, Festivals.LANTERN_FESTIVAL);
+    public QingTuan(String id, IFestival @NotNull ... enableTimes) {
+        super(id, Festivals.QING_MING);
         if (enableTimes.length > 0) {
             super.enableTimes.clear();
             super.enableTimes.addAll(List.of(enableTimes));
         }
     }
 
-
     @Override
     public Map<Item, Supplier<Item>> getItemReplace() {
         Map<Item, Supplier<Item>> map = new ConcurrentHashMap<>();
-        map.put(Items.BEETROOT_SOUP, SWEET_DUMPLINGS);
+        map.put(Items.BAKED_POTATO, QING_TUAN);
         return map;
     }
 
     @Override
     public Map<String, Supplier<String>> getTranslationReplace() {
         Map<String, Supplier<String>> map = new ConcurrentHashMap<>();
-        map.put("item.minecraft.beetroot_soup", () -> "item.chinesefestivals.sweet_dumplings");
+        map.put("item.minecraft.baked_potato", () -> "item.chinesefestivals.qing_tuan");
         return map;
     }
 }

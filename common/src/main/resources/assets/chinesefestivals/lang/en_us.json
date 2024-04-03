@@ -16,12 +16,14 @@
   "festival.none.name": "None",
   "festival.qixi.name": "Qixi Festival",
   "festival.spring.name": "Spring Festival",
-  "item.chinesefestivals.dumplings": "Dumplings",
+  "festival.qing_ming.name": "Qing Ming",
   "item.chinesefestivals.flower_cake": "Flower cake",
   "item.chinesefestivals.hotpot_n": "Clear Soup Hot Pot",
   "item.chinesefestivals.hotpot_s": "Jiugongge Hot Pot",
   "item.chinesefestivals.laba_congee": "Laba Congee",
   "item.chinesefestivals.mooncake": "Mooncake",
-  "item.chinesefestivals.sweet_dumplings": "Sweet Dumplings",
+  "item.chinesefestivals.jiao_zi": "Jiao Zi",
+  "item.chinesefestivals.tang_yuan": "Tang Yuan",
+  "item.chinesefestivals.qing_tuan": "Qing Tuan",
   "item.firework_star.shape.dragon": "Dragon-shaped"
 }

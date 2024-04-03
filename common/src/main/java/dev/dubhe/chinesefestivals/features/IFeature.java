@@ -33,6 +33,10 @@ public interface IFeature {
         return Collections.emptyMap();
     }
 
+    default Map<Item, Supplier<Item>> get3DFoodReplace() {
+        return Collections.emptyMap();
+    }
+
     default ModelResourceLocation getBlockReplace(BlockState blockState) {
         return null;
     }

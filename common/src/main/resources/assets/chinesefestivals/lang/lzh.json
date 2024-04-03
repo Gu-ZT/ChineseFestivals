@@ -16,12 +16,14 @@
   "festival.none.name": "無",
   "festival.qixi.name": "乞巧",
   "festival.spring.name": "春節",
-  "item.chinesefestivals.dumplings": "交子",
+  "festival.qing_ming.name": "清明",
+  "item.chinesefestivals.jiao_zi": "交子",
   "item.chinesefestivals.flower_cake": "重陽糕",
   "item.chinesefestivals.hotpot_n": "清湯古董羹",
   "item.chinesefestivals.hotpot_s": "九宮格古董羹",
   "item.chinesefestivals.laba_congee": "臘八粥",
   "item.chinesefestivals.mooncake": "月團",
-  "item.chinesefestivals.sweet_dumplings": "浮圓子",
+  "item.chinesefestivals.tang_yuan": "浮圓子",
+  "item.chinesefestivals.qing_tuan": "青團",
   "item.firework_star.shape.dragon": "龍狀"
 }
