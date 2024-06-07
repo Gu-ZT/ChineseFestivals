@@ -34,6 +34,7 @@ public class Features {
     public static final Supplier<IFeature> QING_TUAN = new FeatureGetter("qing_tuan", QingTuan::new);
     public static final Supplier<IFeature> THREE_D_FOOD = new FeatureGetter("3d_food", ThreeDFood::new);
     public static final Supplier<IFeature> ZONG_ZI = new FeatureGetter("zong_zi", ZongZi::new);
+    public static final Supplier<IFeature> LOONG_BOAT = new FeatureGetter("loong_boat", LoongBoat::new);
     public static final List<Supplier<IFeature>> FEATURES = Collections.synchronizedList(new ArrayList<>() {{
         add(COUPLETS);
         add(JIAO_ZI);
@@ -48,6 +49,7 @@ public class Features {
         add(QING_TUAN);
         add(THREE_D_FOOD);
         add(ZONG_ZI);
+        add(LOONG_BOAT);
     }});
 
     public static void refresh() {

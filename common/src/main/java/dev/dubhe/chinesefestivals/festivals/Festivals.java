@@ -11,7 +11,7 @@ public class Festivals {
     // 元宵节
     public static final IFestival LANTERN_FESTIVAL = new LunarFestival("lantern", 1, 15);
     // 端午节
-    public static final IFestival DRAGON_BOAT_FESTIVAL = new LunarFestival("dragon_boat", 5, 5);
+    public static final IFestival LOONG_BOAT_FESTIVAL = new LunarFestival("loong_boat", 5, 5);
     // 七夕节
     public static final IFestival QIXI_FESTIVAL = new LunarFestival("qixi", 7, 7);
     // 中秋节
@@ -28,7 +28,7 @@ public class Festivals {
     public static final List<IFestival> FESTIVALS = Collections.synchronizedList(new ArrayList<>() {{
         this.add(CHINESE_SPRING_FESTIVAL);
         this.add(LANTERN_FESTIVAL);
-        this.add(DRAGON_BOAT_FESTIVAL);
+        this.add(LOONG_BOAT_FESTIVAL);
         this.add(QIXI_FESTIVAL);
         this.add(MOON_FESTIVAL);
         this.add(DOUBLE_NINTH_FESTIVAL);
