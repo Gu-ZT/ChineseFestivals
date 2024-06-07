@@ -12,9 +12,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public class Hotpots extends Feature {
@@ -47,7 +48,7 @@ public class Hotpots extends Feature {
 
     @Override
     public Map<Item, Supplier<Item>> getItemReplace() {
-        Map<Item, Supplier<Item>> map = new ConcurrentHashMap<>();
+        Map<Item, Supplier<Item>> map = Collections.synchronizedMap(new HashMap<>());
         map.put(Items.CAMPFIRE, HOTPOT_S_ITEM);
         map.put(Items.SOUL_CAMPFIRE, HOTPOT_N_ITEM);
         return map;
@@ -55,7 +56,7 @@ public class Hotpots extends Feature {
 
     @Override
     public Map<String, Supplier<String>> getTranslationReplace() {
-        Map<String, Supplier<String>> map = new ConcurrentHashMap<>();
+        Map<String, Supplier<String>> map = Collections.synchronizedMap(new HashMap<>());
         map.put("item.minecraft.campfire", () -> "item.chinesefestivals.hotpot_s");
         map.put("item.minecraft.soul_campfire", () -> "item.chinesefestivals.hotpot_n");
         map.put("item.minecraft.rabbit_stew", () -> "item.chinesefestivals.dumplings");

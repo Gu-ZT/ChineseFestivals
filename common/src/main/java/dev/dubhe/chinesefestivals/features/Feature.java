@@ -2,8 +2,9 @@ package dev.dubhe.chinesefestivals.features;
 
 import dev.dubhe.chinesefestivals.festivals.IFestival;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Vector;
 
 public class Feature implements IFeature {
     private final String id;
@@ -11,7 +12,7 @@ public class Feature implements IFeature {
 
     public Feature(String id, IFestival... enableTimes) {
         this.id = id;
-        this.enableTimes = new Vector<>(List.of(enableTimes));
+        this.enableTimes = Collections.synchronizedList(new ArrayList<>(List.of(enableTimes)));
     }
 
     @Override

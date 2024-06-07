@@ -1,7 +1,8 @@
 package dev.dubhe.chinesefestivals.festivals;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Vector;
 
 public class Festivals {
     public static boolean hasChanged = false;
@@ -24,7 +25,7 @@ public class Festivals {
     // 腊八节
     public static final IFestival QING_MING = new SolarTermFestival("qing_ming", SolarTermFestival.SolarTerm.QING_MING);
 
-    public static final List<IFestival> FESTIVALS = new Vector<>() {{
+    public static final List<IFestival> FESTIVALS = Collections.synchronizedList(new ArrayList<>() {{
         this.add(CHINESE_SPRING_FESTIVAL);
         this.add(LANTERN_FESTIVAL);
         this.add(DRAGON_BOAT_FESTIVAL);
@@ -34,7 +35,7 @@ public class Festivals {
         this.add(DONG_ZHI_FESTIVAL);
         this.add(LABA_FESTIVAL);
         this.add(QING_MING);
-    }};
+    }});
 
     public static void refresh() {
         FESTIVALS.stream().parallel().forEach(IFestival::refresh);

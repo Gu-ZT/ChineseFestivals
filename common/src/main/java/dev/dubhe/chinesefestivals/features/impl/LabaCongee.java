@@ -8,9 +8,10 @@ import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public class LabaCongee extends Feature {
@@ -26,14 +27,14 @@ public class LabaCongee extends Feature {
 
     @Override
     public Map<Item, Supplier<Item>> getItemReplace() {
-        Map<Item, Supplier<Item>> map = new ConcurrentHashMap<>();
+        Map<Item, Supplier<Item>> map = Collections.synchronizedMap(new HashMap<>());
         map.put(Items.MUSHROOM_STEW, LABA_CONGEE);
         return map;
     }
 
     @Override
     public Map<String, Supplier<String>> getTranslationReplace() {
-        Map<String, Supplier<String>> map = new ConcurrentHashMap<>();
+        Map<String, Supplier<String>> map = Collections.synchronizedMap(new HashMap<>());
         map.put("item.minecraft.mushroom_stew", () -> "item.chinesefestivals.laba_congee");
         return map;
     }

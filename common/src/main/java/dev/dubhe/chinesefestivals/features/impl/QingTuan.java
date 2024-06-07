@@ -9,9 +9,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public class QingTuan extends Feature {
@@ -27,14 +28,14 @@ public class QingTuan extends Feature {
 
     @Override
     public Map<Item, Supplier<Item>> getItemReplace() {
-        Map<Item, Supplier<Item>> map = new ConcurrentHashMap<>();
+        Map<Item, Supplier<Item>> map = Collections.synchronizedMap(new HashMap<>());
         map.put(Items.BAKED_POTATO, QING_TUAN);
         return map;
     }
 
     @Override
     public Map<String, Supplier<String>> getTranslationReplace() {
-        Map<String, Supplier<String>> map = new ConcurrentHashMap<>();
+        Map<String, Supplier<String>> map = Collections.synchronizedMap(new HashMap<>());
         map.put("item.minecraft.baked_potato", () -> "item.chinesefestivals.qing_tuan");
         return map;
     }

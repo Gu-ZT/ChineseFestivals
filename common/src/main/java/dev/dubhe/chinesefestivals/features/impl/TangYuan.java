@@ -8,9 +8,10 @@ import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public class TangYuan extends Feature {
@@ -27,14 +28,14 @@ public class TangYuan extends Feature {
 
     @Override
     public Map<Item, Supplier<Item>> getItemReplace() {
-        Map<Item, Supplier<Item>> map = new ConcurrentHashMap<>();
+        Map<Item, Supplier<Item>> map = Collections.synchronizedMap(new HashMap<>());
         map.put(Items.BEETROOT_SOUP, SWEET_DUMPLINGS);
         return map;
     }
 
     @Override
     public Map<String, Supplier<String>> getTranslationReplace() {
-        Map<String, Supplier<String>> map = new ConcurrentHashMap<>();
+        Map<String, Supplier<String>> map = Collections.synchronizedMap(new HashMap<>());
         map.put("item.minecraft.beetroot_soup", () -> "item.chinesefestivals.tang_yuan");
         return map;
     }

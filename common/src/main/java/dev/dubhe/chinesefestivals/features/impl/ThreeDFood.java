@@ -12,9 +12,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public class ThreeDFood extends Feature {
@@ -32,7 +33,7 @@ public class ThreeDFood extends Feature {
 
     @Override
     public Map<Item, Supplier<Item>> get3DFoodReplace() {
-        Map<Item, Supplier<Item>> map = new ConcurrentHashMap<>();
+        Map<Item, Supplier<Item>> map = Collections.synchronizedMap(new HashMap<>());
         map.put(Items.APPLE, APPLE_3D);
         map.put(Items.COOKIE, COOKIE_3D);
         return map;

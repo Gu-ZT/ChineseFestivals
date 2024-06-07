@@ -12,10 +12,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public class Mooncakes extends Feature {
@@ -29,7 +31,7 @@ public class Mooncakes extends Feature {
     public static final ModelResourceLocation MOONCAKES_5 = IFeature.registerBlockModel(new BlockModelData("mooncakes_slice5"));
     public static final ModelResourceLocation MOONCAKES_6 = IFeature.registerBlockModel(new BlockModelData("mooncakes_slice6"));
 
-    public Mooncakes(String id, IFestival... enableTimes) {
+    public Mooncakes(String id, IFestival @NotNull ... enableTimes) {
         super(id, Festivals.MOON_FESTIVAL);
         if (enableTimes.length > 0) {
             super.enableTimes.clear();
@@ -39,14 +41,14 @@ public class Mooncakes extends Feature {
 
     @Override
     public Map<Item, Supplier<Item>> getItemReplace() {
-        Map<Item, Supplier<Item>> map = new ConcurrentHashMap<>();
+        Map<Item, Supplier<Item>> map = Collections.synchronizedMap(new HashMap<>());
         map.put(Items.CAKE, MOONCAKES_ITEM);
         map.put(Items.PUMPKIN_PIE, MOONCAKE_ITEM);
         return map;
     }
 
     @Override
-    public ModelResourceLocation getBlockReplace(BlockState blockState) {
+    public ModelResourceLocation getBlockReplace(@NotNull BlockState blockState) {
         if (blockState.is(Blocks.CAKE)) {
             return switch (blockState.getValue(CakeBlock.BITES)) {
                 case 1 -> MOONCAKES_1;
@@ -63,7 +65,7 @@ public class Mooncakes extends Feature {
 
     @Override
     public Map<String, Supplier<String>> getTranslationReplace() {
-        Map<String, Supplier<String>> map = new ConcurrentHashMap<>();
+        Map<String, Supplier<String>> map = Collections.synchronizedMap(new HashMap<>());
         map.put("block.minecraft.cake", () -> "block.chinesefestivals.mooncakes");
         map.put("item.minecraft.pumpkin_pie", () -> "item.chinesefestivals.mooncake");
         return map;

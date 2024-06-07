@@ -6,20 +6,21 @@ import dev.dubhe.chinesefestivals.ChineseFestivals;
 import dev.dubhe.chinesefestivals.features.impl.*;
 import dev.dubhe.chinesefestivals.festivals.IFestival;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 public class Features {
     public static final Gson GSON = new GsonBuilder()
-            .setPrettyPrinting()
-            .registerTypeAdapter(IFeature.class, new FeatureParser())
-            .registerTypeAdapter(IFestival.class, new FeatureParser.FestivalParser())
-            .create();
-    public static final Map<String, BiFunction<String, IFestival[], IFeature>> FEATURE_GENERATORS = new ConcurrentHashMap<>();
+        .setPrettyPrinting()
+        .registerTypeAdapter(IFeature.class, new FeatureParser())
+        .registerTypeAdapter(IFestival.class, new FeatureParser.FestivalParser())
+        .create();
+    public static final Map<String, BiFunction<String, IFestival[], IFeature>> FEATURE_GENERATORS = Collections.synchronizedMap(new HashMap<>());
     public static final Supplier<IFeature> COUPLETS = new FeatureGetter("couplets", Couplets::new);
     public static final Supplier<IFeature> JIAO_ZI = new FeatureGetter("jiao_zi", JiaoZi::new);
     public static final Supplier<IFeature> FIREWORKS = new FeatureGetter("fireworks", Fireworks::new);
@@ -32,7 +33,8 @@ public class Features {
     public static final Supplier<IFeature> TANG_YUAN = new FeatureGetter("tang_yuan", TangYuan::new);
     public static final Supplier<IFeature> QING_TUAN = new FeatureGetter("qing_tuan", QingTuan::new);
     public static final Supplier<IFeature> THREE_D_FOOD = new FeatureGetter("3d_food", ThreeDFood::new);
-    public static final List<Supplier<IFeature>> FEATURES = new Vector<>() {{
+    public static final Supplier<IFeature> ZONG_ZI = new FeatureGetter("zong_zi", ZongZi::new);
+    public static final List<Supplier<IFeature>> FEATURES = Collections.synchronizedList(new ArrayList<>() {{
         add(COUPLETS);
         add(JIAO_ZI);
         add(FIREWORKS);
@@ -45,7 +47,8 @@ public class Features {
         add(TANG_YUAN);
         add(QING_TUAN);
         add(THREE_D_FOOD);
-    }};
+        add(ZONG_ZI);
+    }});
 
     public static void refresh() {
         for (Supplier<IFeature> feature : FEATURES) {

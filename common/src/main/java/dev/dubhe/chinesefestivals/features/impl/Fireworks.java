@@ -5,9 +5,10 @@ import dev.dubhe.chinesefestivals.festivals.Festivals;
 import dev.dubhe.chinesefestivals.festivals.IFestival;
 import dev.dubhe.chinesefestivals.util.BitMap;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public class Fireworks extends Feature {
@@ -27,7 +28,7 @@ public class Fireworks extends Feature {
 
     @Override
     public Map<String, Supplier<String>> getTranslationReplace() {
-        Map<String, Supplier<String>> map = new ConcurrentHashMap<>();
+        Map<String, Supplier<String>> map = Collections.synchronizedMap(new HashMap<>());
         map.put("item.minecraft.firework_star.shape.creeper", () -> "item.firework_star.shape.dragon");
         return map;
     }
