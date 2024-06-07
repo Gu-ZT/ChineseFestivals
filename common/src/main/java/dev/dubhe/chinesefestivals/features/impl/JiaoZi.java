@@ -13,10 +13,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
-public class Dumplings extends Feature {
-    public static final Supplier<Item> DUMPLINGS = IFeature.createItem("dumplings", new Item.Properties().food(Foods.RABBIT_STEW), Item::new);
+public class JiaoZi extends Feature {
+    public static final Supplier<Item> DUMPLINGS = IFeature.createItem("jiao_zi", new Item.Properties().food(Foods.RABBIT_STEW), Item::new);
 
-    public Dumplings(String id, IFestival... enableTimes) {
+    public JiaoZi(String id, IFestival... enableTimes) {
         super(id, Festivals.DONG_ZHI_FESTIVAL, Festivals.CHINESE_SPRING_FESTIVAL);
         if (enableTimes.length > 0) {
             super.enableTimes.clear();
@@ -34,7 +34,7 @@ public class Dumplings extends Feature {
     @Override
     public Map<String, Supplier<String>> getTranslationReplace() {
         Map<String, Supplier<String>> map = new ConcurrentHashMap<>();
-        map.put("item.minecraft.rabbit_stew", () -> "item.chinesefestivals.dumplings");
+        map.put("item.minecraft.rabbit_stew", () -> "item.chinesefestivals.jiao_zi");
         return map;
     }
 }

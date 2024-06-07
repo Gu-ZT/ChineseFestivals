@@ -21,7 +21,7 @@ public class Features {
             .create();
     public static final Map<String, BiFunction<String, IFestival[], IFeature>> FEATURE_GENERATORS = new ConcurrentHashMap<>();
     public static final Supplier<IFeature> COUPLETS = new FeatureGetter("couplets", Couplets::new);
-    public static final Supplier<IFeature> DUMPLINGS = new FeatureGetter("dumplings", Dumplings::new);
+    public static final Supplier<IFeature> JIAO_ZI = new FeatureGetter("jiao_zi", JiaoZi::new);
     public static final Supplier<IFeature> FIREWORKS = new FeatureGetter("fireworks", Fireworks::new);
     public static final Supplier<IFeature> FLOWER_CAKE = new FeatureGetter("flower_cake", FlowerCake::new);
     public static final Supplier<IFeature> HOTPOTS = new FeatureGetter("hotpots", Hotpots::new);
@@ -29,10 +29,12 @@ public class Features {
     public static final Supplier<IFeature> LANTERNS = new FeatureGetter("lanterns", Lanterns::new);
     public static final Supplier<IFeature> MOONCAKES = new FeatureGetter("mooncakes", Mooncakes::new);
     public static final Supplier<IFeature> PLATES = new FeatureGetter("plates", Plates::new);
-    public static final Supplier<IFeature> SWEET_DUMPLINGS = new FeatureGetter("sweet_dumplings", SweetDumplings::new);
+    public static final Supplier<IFeature> TANG_YUAN = new FeatureGetter("tang_yuan", TangYuan::new);
+    public static final Supplier<IFeature> QING_TUAN = new FeatureGetter("qing_tuan", QingTuan::new);
+    public static final Supplier<IFeature> THREE_D_FOOD = new FeatureGetter("3d_food", ThreeDFood::new);
     public static final List<Supplier<IFeature>> FEATURES = new Vector<>() {{
         add(COUPLETS);
-        add(DUMPLINGS);
+        add(JIAO_ZI);
         add(FIREWORKS);
         add(FLOWER_CAKE);
         add(HOTPOTS);
@@ -40,7 +42,9 @@ public class Features {
         add(LANTERNS);
         add(MOONCAKES);
         add(PLATES);
-        add(SWEET_DUMPLINGS);
+        add(TANG_YUAN);
+        add(QING_TUAN);
+        add(THREE_D_FOOD);
     }};
 
     public static void refresh() {

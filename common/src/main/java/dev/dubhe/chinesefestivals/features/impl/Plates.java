@@ -17,8 +17,9 @@ import java.util.List;
 public class Plates extends Feature {
     private static final ModelResourceLocation DARK_PLATE = IFeature.registerBlockModel(new BlockModelData("plate").property("dark", "true", BooleanProperty::create));
     private static final ModelResourceLocation PLATE = IFeature.registerBlockModel(new BlockModelData("plate").property("dark", "false", BooleanProperty::create));
+
     public Plates(String id, IFestival... enableTimes) {
-        super(id, Festivals.CHINESE_SPRING_FESTIVAL);
+        super(id, Festivals.CHINESE_SPRING_FESTIVAL, Festivals.QING_MING);
         if (enableTimes.length > 0) {
             super.enableTimes.clear();
             super.enableTimes.addAll(List.of(enableTimes));

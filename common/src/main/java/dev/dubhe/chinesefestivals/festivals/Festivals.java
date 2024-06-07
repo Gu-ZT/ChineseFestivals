@@ -21,6 +21,8 @@ public class Festivals {
     public static final IFestival DONG_ZHI_FESTIVAL = new SolarTermFestival("dong_zhi", SolarTermFestival.SolarTerm.DONG_ZHI);
     // 腊八节
     public static final IFestival LABA_FESTIVAL = new LunarFestival("laba", 12, 8);
+    // 腊八节
+    public static final IFestival QING_MING = new SolarTermFestival("qing_ming", SolarTermFestival.SolarTerm.QING_MING);
 
     public static final List<IFestival> FESTIVALS = new Vector<>() {{
         this.add(CHINESE_SPRING_FESTIVAL);
@@ -31,6 +33,7 @@ public class Festivals {
         this.add(DOUBLE_NINTH_FESTIVAL);
         this.add(DONG_ZHI_FESTIVAL);
         this.add(LABA_FESTIVAL);
+        this.add(QING_MING);
     }};
 
     public static void refresh() {
