@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.ListModel;
+import net.minecraft.client.model.WaterPatchModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -17,7 +18,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.vehicle.Boat;
 import org.jetbrains.annotations.NotNull;
 
-public class LoongBoatModel extends ListModel<Boat> {
+public class LoongBoatModel extends ListModel<Boat> implements WaterPatchModel {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("chinesefestivals", "loong_boat"), "main");
     private static final String BOTTOM = "bottom";
     private static final String BACK = "back";
@@ -29,13 +30,13 @@ public class LoongBoatModel extends ListModel<Boat> {
     private final ModelPart left;
     private final ModelPart right;
     private final ModelPart bottom;
-    private final ModelPart bottom_no_water;
-    private final ModelPart paddle_left;
-    private final ModelPart paddle_left2;
-    private final ModelPart paddle_left3;
-    private final ModelPart paddle_right;
-    private final ModelPart paddle_right2;
-    private final ModelPart paddle_right3;
+    private final ModelPart waterPatch;
+    private final ModelPart paddleLeft;
+    private final ModelPart paddleLeft2;
+    private final ModelPart paddleLeft3;
+    private final ModelPart paddleRight;
+    private final ModelPart paddleRight2;
+    private final ModelPart paddleRight3;
     private final ImmutableList<ModelPart> parts;
 
     public LoongBoatModel(ModelPart root) {
@@ -44,19 +45,19 @@ public class LoongBoatModel extends ListModel<Boat> {
         this.left = root.getChild("left");
         this.right = root.getChild("right");
         this.bottom = root.getChild("bottom");
-        this.bottom_no_water = root.getChild("bottom_no_water");
-        this.paddle_left = root.getChild("paddle_left");
-        this.paddle_left2 = root.getChild("paddle_left2");
-        this.paddle_left3 = root.getChild("paddle_left3");
-        this.paddle_right = root.getChild("paddle_right");
-        this.paddle_right2 = root.getChild("paddle_right2");
-        this.paddle_right3 = root.getChild("paddle_right3");
+        this.waterPatch = root.getChild("bottom_no_water");
+        this.paddleLeft = root.getChild("paddle_left");
+        this.paddleLeft2 = root.getChild("paddle_left2");
+        this.paddleLeft3 = root.getChild("paddle_left3");
+        this.paddleRight = root.getChild("paddle_right");
+        this.paddleRight2 = root.getChild("paddle_right2");
+        this.paddleRight3 = root.getChild("paddle_right3");
         this.parts = this.createPartsBuilder(root).build();
     }
 
     protected ImmutableList.Builder<ModelPart> createPartsBuilder(ModelPart modelPart) {
         ImmutableList.Builder<ModelPart> builder = new ImmutableList.Builder<ModelPart>();
-        builder.add(modelPart.getChild(BOTTOM), modelPart.getChild(BACK), modelPart.getChild(FRONT), modelPart.getChild(RIGHT), modelPart.getChild(LEFT), this.paddle_left, this.paddle_left2, this.paddle_left3, this.paddle_right, this.paddle_right2, this.paddle_right3);
+        builder.add(modelPart.getChild(BOTTOM), modelPart.getChild(BACK), modelPart.getChild(FRONT), modelPart.getChild(RIGHT), modelPart.getChild(LEFT), this.paddleLeft, this.paddleLeft2, this.paddleLeft3, this.paddleRight, this.paddleRight2, this.paddleRight3);
         return builder;
     }
 
@@ -147,12 +148,12 @@ public class LoongBoatModel extends ListModel<Boat> {
 
     @Override
     public void setupAnim(Boat boat, float f, float g, float h, float i, float j) {
-        LoongBoatModel.animatePaddle(boat, 0, this.paddle_left, f);
-        LoongBoatModel.animatePaddle(boat, 0, this.paddle_left2, f);
-        LoongBoatModel.animatePaddle(boat, 0, this.paddle_left3, f);
-        LoongBoatModel.animatePaddle(boat, 1, this.paddle_right, f);
-        LoongBoatModel.animatePaddle(boat, 1, this.paddle_right2, f);
-        LoongBoatModel.animatePaddle(boat, 1, this.paddle_right3, f);
+        LoongBoatModel.animatePaddle(boat, 0, this.paddleLeft, f);
+        LoongBoatModel.animatePaddle(boat, 0, this.paddleLeft2, f);
+        LoongBoatModel.animatePaddle(boat, 0, this.paddleLeft3, f);
+        LoongBoatModel.animatePaddle(boat, 1, this.paddleRight, f);
+        LoongBoatModel.animatePaddle(boat, 1, this.paddleRight2, f);
+        LoongBoatModel.animatePaddle(boat, 1, this.paddleRight3, f);
     }
 
     private static void animatePaddle(@NotNull Boat boat, int i, @NotNull ModelPart modelPart, float f) {
@@ -173,17 +174,22 @@ public class LoongBoatModel extends ListModel<Boat> {
         left.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         right.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         bottom.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        bottom_no_water.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        paddle_left.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        paddle_left2.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        paddle_left3.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        paddle_right.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        paddle_right2.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        paddle_right3.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+        waterPatch.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+        paddleLeft.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+        paddleLeft2.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+        paddleLeft3.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+        paddleRight.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+        paddleRight2.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+        paddleRight3.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     @Override
     public @NotNull Iterable<ModelPart> parts() {
         return this.parts;
+    }
+
+    @Override
+    public @NotNull ModelPart waterPatch() {
+        return this.waterPatch;
     }
 }
